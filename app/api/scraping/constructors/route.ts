@@ -26,16 +26,14 @@ export async function GET(): Promise<NextResponse> {
       (teams) =>
         teams.map((team) => {
           // scrape team data
-          // Información del equipo como nombre, logo y imagen del coche
+          // Información del equipo como nombre y logo
           const name = team.querySelector(
             'p.typography-module_display-l-bold__m1yaJ'
           )?.innerHTML
           const logoUrl = team
             .querySelector('span.TeamLogo-module_teamlogo__lA3j1 img')
             ?.getAttribute('src')
-          const carImageUrl = team
-            .querySelector('span.relative.h-\\[112px\\] img')
-            ?.getAttribute('src')
+
           // Colores del equipo desde las variables CSS
           const computedStyle = window.getComputedStyle(team)
           // Intentar obtener las variables CSS personalizadas
@@ -44,9 +42,11 @@ export async function GET(): Promise<NextResponse> {
           let contrast =
             computedStyle.getPropertyValue('--f1-accessible-colour').trim() ||
             null
+
           // Validar que los colores son hexadecimales
           if (!isHexColor(primary)) primary = null
           if (!isHexColor(contrast)) contrast = null
+
           // Si no funcionan las variables CSS, intentar con el atributo style
           let fallbackPrimary = null
           let fallbackContrast = null
@@ -61,6 +61,7 @@ export async function GET(): Promise<NextResponse> {
 
             fallbackPrimary = matchPrimary ? matchPrimary[1].trim() : null
             fallbackContrast = matchContrast ? matchContrast[1].trim() : null
+
             // Validar que los colores de fallback son hexadecimales
             if (!primary && isHexColor(fallbackPrimary))
               primary = fallbackPrimary
@@ -73,7 +74,6 @@ export async function GET(): Promise<NextResponse> {
             name,
             branding: {
               logoUrl,
-              carImageUrl,
             },
             colors: {
               primary: primary || fallbackPrimary,
@@ -82,6 +82,7 @@ export async function GET(): Promise<NextResponse> {
           }
         })
     )
+
     // Filtrar equipos con datos válidos
     const validTeams = teams.filter(
       (team): team is ConstructorScrape =>

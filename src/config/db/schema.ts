@@ -217,7 +217,6 @@ export const drivers = pgTable(
     nationality: varchar('nationality', { length: 50 }).notNull(),
     number: integer('number').notNull().unique(),
     portraitUrl: text('portrait_url'),
-    numberIconUrl: text('number_icon_url'),
     isActive: boolean('is_active').notNull().default(true),
     createdAt: timestamp('created_at', { withTimezone: true })
       .notNull()
@@ -283,7 +282,6 @@ export const constructors = pgTable(
     id: text('id').primaryKey(),
     name: varchar('name', { length: 255 }).notNull().unique(),
     logoUrl: text('logo_url'),
-    carImageUrl: text('car_image_url'),
     primaryColor: varchar('primary_color', { length: 7 }),
     contrastColor: varchar('contrast_color', { length: 7 }),
     isActive: boolean('is_active').notNull().default(true),
