@@ -1,6 +1,6 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import { inter, roboto } from '@/src/config/fonts'
+import { inter } from '@/src/config/fonts'
 import Providers from './providers'
 
 export const metadata: Metadata = {
@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html suppressHydrationWarning lang="en">
-      <body className={`${inter.className} ${roboto.className} antialiased`}>
+      <body className={`${inter.className} antialiased`}>
         <Providers themeProps={{ defaultTheme: 'system' }}>
           {children}
         </Providers>
