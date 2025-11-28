@@ -3,6 +3,7 @@
 import { useAuth } from '../hooks/useAuth'
 import { LoginSchema, LoginTypes } from '../schemas/login'
 
+import FormContainer from './FormContainer'
 import {
   Field,
   FieldError,
@@ -10,7 +11,6 @@ import {
   FieldLabel,
 } from '@/src/components/ui/field'
 import { Input } from '@/src/components/ui/input'
-import FormContainer from './FormContainer'
 
 export default function FormLogin() {
   const { register, handleSubmit, errors, onSubmit, loading } =
@@ -41,7 +41,7 @@ export default function FormLogin() {
                 type="password"
                 required
               />
-              <FieldError className="">{errors.password?.message}</FieldError>
+              <FieldError>{errors.password?.message}</FieldError>
             </Field>
           </FieldGroup>
         </Field>

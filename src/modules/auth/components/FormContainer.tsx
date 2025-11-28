@@ -1,3 +1,6 @@
+import Link from 'next/link'
+import { TypeAuth } from '../types/auth'
+
 import {
   Field,
   FieldDescription,
@@ -7,8 +10,6 @@ import {
 import { Button } from '@/src/components/ui/button'
 import { Spinner } from '@/src/components/ui/spinner'
 import SocialButton from './ui/social-button'
-import { TypeAuth } from '../types/auth'
-import Link from 'next/link'
 
 interface Props {
   children: React.ReactNode
@@ -30,7 +31,7 @@ export default function FormContainer({ children, loading, typeAuth }: Props) {
       {children}
 
       <Field className="gap-2.5">
-        <Button type="submit" className="btn-warm-red cursor-pointer">
+        <Button type="submit" className="cursor-pointer">
           {loading ? (
             <>
               <Spinner />

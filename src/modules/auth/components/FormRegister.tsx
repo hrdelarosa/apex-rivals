@@ -1,5 +1,9 @@
 'use client'
 
+import { useAuth } from '../hooks/useAuth'
+import { RegisterSchema, RegisterTypes } from '../schemas/register'
+
+import FormContainer from './FormContainer'
 import {
   Field,
   FieldDescription,
@@ -7,10 +11,6 @@ import {
   FieldGroup,
   FieldLabel,
 } from '@/src/components/ui/field'
-import { useAuth } from '../hooks/useAuth'
-import { RegisterSchema, RegisterTypes } from '../schemas/register'
-
-import FormContainer from './FormContainer'
 import { Input } from '@/src/components/ui/input'
 
 export default function FormRegister() {
