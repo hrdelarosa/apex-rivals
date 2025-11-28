@@ -1,7 +1,30 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
+
+@theme {
+  /* Colors */
+  --color-warm-red: #ff1e00;
+
+  /* Fonts */
+  --font-exo2: 'Exo 2', sans-serif, system-ui, Roboto;
+}
+
+@layer utilities {
+  .btn-warm-red {
+    background-color: var(--color-warm-red);
+    color: white;
+
+    &:hover {
+      background-color: color-mix(
+        in srgb,
+        var(--color-warm-red) 85%,
+        transparent
+      );
+    }
+  }
+}
 
 @theme inline {
   --color-background: var(--background);
