@@ -18,7 +18,7 @@ export default function FormLogin() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <FormContainer loading={loading}>
+      <FormContainer loading={loading} typeAuth="login">
         <Field>
           <FieldGroup className="gap-3">
             <Field className="gap-1.5">
