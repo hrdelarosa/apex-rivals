@@ -1,4 +1,8 @@
 import { ComponentProps } from 'react'
+import Link from 'next/link'
+import Image from 'next/image'
+import { mainRoutes, secondaryRoutes } from '../config/routes'
+
 import {
   Sidebar,
   SidebarContent,
@@ -8,8 +12,6 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from './ui/sidebar'
-import Link from 'next/link'
-import Image from 'next/image'
 import NavUser from './NavUser'
 import NavSecondary from './NavSecondary'
 import NavMain from './NavMain'
@@ -44,8 +46,8 @@ export default function AppSidebar({
       </SidebarHeader>
 
       <SidebarContent>
-        <NavMain />
-        <NavSecondary className="mt-auto" />
+        <NavMain items={mainRoutes} />
+        <NavSecondary items={secondaryRoutes} className="mt-auto" />
       </SidebarContent>
 
       <SidebarFooter>
