@@ -35,10 +35,12 @@ export default function FormContainer({ children, loading, typeAuth }: Props) {
           {loading ? (
             <>
               <Spinner />
-              Iniciando sesión..
+              {typeAuth === 'login' ? 'Iniciando sesión...' : 'Registrando...'}
             </>
-          ) : (
+          ) : typeAuth === 'login' ? (
             'Iniciar sesión'
+          ) : (
+            'Registrarse'
           )}
         </Button>
 
