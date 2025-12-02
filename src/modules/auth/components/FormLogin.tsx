@@ -1,7 +1,8 @@
 'use client'
 
-import { useAuth } from '../hooks/useAuth'
+import { useFormWithValidation } from '../hooks/useFormWithValidation'
 import { LoginSchema, LoginTypes } from '../schemas/login'
+import { useAuth } from '../hooks/useAuth'
 
 import FormContainer from './FormContainer'
 import {
@@ -13,8 +14,14 @@ import {
 import { Input } from '@/src/components/ui/input'
 
 export default function FormLogin() {
-  const { register, handleSubmit, errors, onSubmit, loading } =
-    useAuth<LoginTypes>({ formSchema: LoginSchema })
+  const { signInWithEmail, loading } = useAuth()
+  const { register, handleSubmit, errors, onSubmit } =
+    useFormWithValidation<LoginTypes>({
+      formSchema: LoginSchema,
+      onSubmit: async (data) => {
+        await signInWithEmail({ email: data.email, password: data.password })
+      },
+    })
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

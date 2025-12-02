@@ -1,7 +1,8 @@
 'use client'
 
-import { useAuth } from '../hooks/useAuth'
+import { useFormWithValidation } from '../hooks/useFormWithValidation'
 import { RegisterSchema, RegisterTypes } from '../schemas/register'
+import { useAuth } from '../hooks/useAuth'
 
 import FormContainer from './FormContainer'
 import {
@@ -14,8 +15,18 @@ import {
 import { Input } from '@/src/components/ui/input'
 
 export default function FormRegister() {
-  const { register, handleSubmit, errors, onSubmit, loading } =
-    useAuth<RegisterTypes>({ formSchema: RegisterSchema })
+  const { signUpWithEmail, loading } = useAuth()
+  const { register, handleSubmit, errors, onSubmit } =
+    useFormWithValidation<RegisterTypes>({
+      formSchema: RegisterSchema,
+      onSubmit: async (data) => {
+        await signUpWithEmail({
+          name: data.name,
+          email: data.email,
+          password: data.password,
+        })
+      },
+    })
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
