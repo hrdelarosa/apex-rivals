@@ -2,7 +2,11 @@ import { authClient } from '@/src/lib/auth-client'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { toast } from 'sonner'
-import { signInWithEmailProps, signUpWithEmailProps } from '../types/auth'
+import {
+  sendVerificationEmailProps,
+  signInWithEmailProps,
+  signUpWithEmailProps,
+} from '../types/auth'
 
 export function useAuth() {
   const [loading, setLoading] = useState<boolean>(false)
@@ -41,6 +45,16 @@ export function useAuth() {
           })
           router.push('/dashboard')
         },
+        onError: (ctx) => {
+          setLoading(false)
+
+          if (ctx.error.status === 403) {
+            toast.error(
+              'Por favor, verifica tu correo electrónico antes de iniciar sesión.'
+            )
+            console.error('Email not verified:', ctx.error.message)
+          }
+        },
       }
     )
 
@@ -73,7 +87,7 @@ export function useAuth() {
             description:
               'Sistema de telemetría activado. Bienvenido a Apex Rivals.',
           })
-          router.push('/dashboard')
+          router.push('/verify-email')
         },
       }
     )
@@ -98,11 +112,42 @@ export function useAuth() {
     })
   }
 
+  const sendVerificationEmail = async ({
+    email,
+  }: sendVerificationEmailProps) => {
+    await authClient.sendVerificationEmail(
+      {
+        email,
+        callbackURL: '/login',
+      },
+      {
+        onRequest: () => setLoading(true),
+        onSuccess: () => {
+          setLoading(false)
+
+          toast.message('Correo de verificación enviado', {
+            description:
+              'Revisa tu bandeja de entrada para verificar tu dirección de correo electrónico.',
+          })
+        },
+        onError: (ctx) => {
+          setLoading(false)
+          toast.error(
+            ctx.error.message ||
+              'Unknown error occurred while sending verification email'
+          )
+          console.error('Error sending verification email:', ctx.error.message)
+        },
+      }
+    )
+  }
+
   return {
     loading,
     signInWithGoogle,
     signInWithEmail,
     signUpWithEmail,
     signOut,
+    sendVerificationEmail,
   }
 }

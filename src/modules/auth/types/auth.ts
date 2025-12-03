@@ -8,3 +8,7 @@ export interface signInWithEmailProps {
 export interface signUpWithEmailProps extends signInWithEmailProps {
   name: string
 }
+
+export interface sendVerificationEmailProps {
+  email: string
+}
