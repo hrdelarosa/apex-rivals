@@ -14,10 +14,7 @@ import {
   Text,
 } from '@react-email/components'
 
-export default function EmailVerification({
-  userName,
-  url,
-}: EmailVerificationProps) {
+export default function EmailVerification({ url }: EmailVerificationProps) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
 
   return (
@@ -64,10 +61,6 @@ export default function EmailVerification({
           </Heading>
 
           <Section style={{ paddingBlock: '14px', paddingInline: '0px' }}>
-            <Text style={{ fontSize: '15px', lineHeight: '1.4' }}>
-              👋 Hola {userName}.
-            </Text>
-
             <Text style={{ fontSize: '15px', lineHeight: '1.4' }}>
               Gracias por iniciar el proceso de creación de una nueva cuenta de
               Apex Rivals. Queremos asegurarnos de que realmente eres tú. Si no

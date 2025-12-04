@@ -23,7 +23,7 @@ export const auth = betterAuth({
       await sendEmail({
         to: user.email,
         subject: 'Verifica tu dirección de correo electrónico',
-        html: EmailVerification({ userName: user.name, url }),
+        html: EmailVerification({ url }),
       })
     },
   },

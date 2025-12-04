@@ -13,6 +13,5 @@ export interface EmailTemplateProps {
 }
 
 export interface EmailVerificationProps {
-  userName: string
   url: string
 }
