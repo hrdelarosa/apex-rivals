@@ -15,19 +15,25 @@ export function useAuth() {
   const router = useRouter()
 
   const signInWithGoogle = async () => {
-    setLoading(true)
-
-    const { error } = await authClient.signIn.social({
-      provider: 'google',
-      callbackURL: '/dashboard',
-    })
+    const { error } = await authClient.signIn.social(
+      {
+        provider: 'google',
+        callbackURL: '/dashboard',
+      },
+      {
+        onRequest: () => setLoading(true),
+        onSuccess: () => {
+          setLoading(false)
+        },
+      }
+    )
 
     if (error) {
+      setLoading(false)
       toast.error(
         error.message || 'Unknown error occurred during Google sign-in'
       )
       console.error('Error logging in with Google:', error.message)
-      setLoading(false)
       return
     }
   }
@@ -42,6 +48,8 @@ export function useAuth() {
       {
         onRequest: () => setLoading(true),
         onSuccess: () => {
+          setLoading(false)
+
           toast.message('¡Bienvenido de nuevo a la pista!', {
             description: 'Tu equipo Apex Rivals te esperaba.',
           })
@@ -85,6 +93,8 @@ export function useAuth() {
       {
         onRequest: () => setLoading(true),
         onSuccess: () => {
+          setLoading(false)
+
           toast.message('¡Bienvenido a la grilla!', {
             description:
               'Sistema de telemetría activado. Bienvenido a Apex Rivals.',

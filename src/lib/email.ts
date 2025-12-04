@@ -1,20 +1,25 @@
 import { SendEmailParams } from '../types/email.types'
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-
-export async function sendEmail({ to, subject, html }: SendEmailParams) {
-  if (!process.env.RESEND_API_KEY) {
+function getResendClient() {
+  const apiKey = process.env.RESEND_API_KEY
+  if (!apiKey) {
     console.error('RESEND_API_KEY is not defined in environment variables')
     throw new Error('RESEND_API_KEY is not defined in environment variables')
   }
+  return new Resend(apiKey)
+}
+
+export async function sendEmail({ to, subject, react, html }: SendEmailParams) {
+  const resend = getResendClient()
 
   try {
     const { data, error } = await resend.emails.send({
       from: 'Apex Rivals <onboarding@resend.dev>',
       to,
       subject,
-      react: html,
+      react,
+      html,
     })
 
     if (error) {

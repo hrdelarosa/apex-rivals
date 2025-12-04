@@ -124,7 +124,7 @@ export default function RequestPasswordReset({
             </code>
 
             <Text style={{ fontSize: '15px', lineHeight: '1.4' }}>
-              Si no deceas cambiar tu contraseña o no solicitaste este cambio,
+              Si no deseas cambiar tu contraseña o no solicitaste este cambio,
               puedes ignorar y eliminar este mensaje. Para mantener la seguridad
               de tu cuenta, no reenvíes este correo electrónico a nadie.
             </Text>

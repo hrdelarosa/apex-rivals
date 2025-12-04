@@ -1,12 +1,15 @@
+import type { ReactElement, ReactNode } from 'react'
+
 export interface SendEmailParams {
   to: string
   subject: string
-  html: React.ReactElement | string
+  react?: ReactElement
+  html?: string
 }
 
 export interface EmailTemplateProps {
   title: string
-  children: React.ReactNode
+  children: ReactNode
   buttonText?: string
   buttonUrl?: string
   footerText?: string

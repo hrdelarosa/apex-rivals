@@ -4,6 +4,7 @@ import { db } from '@src/config/db/index'
 import { sendEmail } from './email'
 import EmailVerification from '@/emails/EmailVerification'
 import RequestPasswordReset from '@/emails/RequestPasswordReset'
+import { createElement } from 'react'
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
@@ -16,7 +17,11 @@ export const auth = betterAuth({
       await sendEmail({
         to: user.email,
         subject: 'Restablece tu contraseña',
-        html: RequestPasswordReset({ userName: user.name, url, token }),
+        react: createElement(RequestPasswordReset, {
+          userName: user.name,
+          url,
+          token,
+        }),
       })
     },
   },
@@ -31,7 +36,7 @@ export const auth = betterAuth({
       await sendEmail({
         to: user.email,
         subject: 'Verifica tu dirección de correo electrónico',
-        html: EmailVerification({ url }),
+        react: createElement(EmailVerification, { url }),
       })
     },
   },
