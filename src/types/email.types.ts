@@ -15,3 +15,8 @@ export interface EmailTemplateProps {
 export interface EmailVerificationProps {
   url: string
 }
+
+export interface RequestPasswordResetProps extends EmailVerificationProps {
+  userName: string
+  token: string
+}

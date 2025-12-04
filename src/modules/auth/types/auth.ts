@@ -9,6 +9,16 @@ export interface signUpWithEmailProps extends signInWithEmailProps {
   name: string
 }
 
-export interface sendVerificationEmailProps {
+export interface sendEmailProps {
   email: string
+}
+
+export interface resetPasswordProps {
+  newPassword: string
+  token: string
+}
+
+export interface changePasswordProps {
+  currentPassword: string
+  newPassword: string
 }

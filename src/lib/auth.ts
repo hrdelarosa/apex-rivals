@@ -3,6 +3,7 @@ import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import { db } from '@src/config/db/index'
 import { sendEmail } from './email'
 import EmailVerification from '@/emails/EmailVerification'
+import RequestPasswordReset from '@/emails/RequestPasswordReset'
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
@@ -11,6 +12,13 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: true,
+    sendResetPassword: async ({ user, url, token }) => {
+      await sendEmail({
+        to: user.email,
+        subject: 'Restablece tu contraseña',
+        html: RequestPasswordReset({ userName: user.name, url, token }),
+      })
+    },
   },
   socialProviders: {
     google: {

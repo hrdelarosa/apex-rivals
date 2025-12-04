@@ -3,7 +3,9 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { toast } from 'sonner'
 import {
-  sendVerificationEmailProps,
+  changePasswordProps,
+  resetPasswordProps,
+  sendEmailProps,
   signInWithEmailProps,
   signUpWithEmailProps,
 } from '../types/auth'
@@ -112,9 +114,7 @@ export function useAuth() {
     })
   }
 
-  const sendVerificationEmail = async ({
-    email,
-  }: sendVerificationEmailProps) => {
+  const sendVerificationEmail = async ({ email }: sendEmailProps) => {
     await authClient.sendVerificationEmail(
       {
         email,
@@ -142,6 +142,102 @@ export function useAuth() {
     )
   }
 
+  const requestPasswordReset = async ({ email }: sendEmailProps) => {
+    const { error } = await authClient.requestPasswordReset(
+      {
+        email,
+        redirectTo: '/reset-password',
+      },
+      {
+        onRequest: () => setLoading(true),
+        onSuccess: () => {
+          setLoading(false)
+
+          toast.message('Correo para restablecer tu contraseña', {
+            description:
+              'Por favor, revisa tu bandeja de entrada para restablecer tu contraseña.',
+          })
+        },
+      }
+    )
+
+    if (error) {
+      setLoading(false)
+      toast.error(
+        error.message ||
+          'Unknown error occurred while requesting password reset'
+      )
+      console.error('Error requesting password reset:', error.message)
+      return
+    }
+  }
+
+  const resetPassword = async ({ newPassword, token }: resetPasswordProps) => {
+    if (!token || token.trim() === '') {
+      toast.error('Token no proporcionado o inválido.')
+      return
+    }
+
+    const { error } = await authClient.resetPassword(
+      {
+        newPassword,
+        token,
+      },
+      {
+        onRequest: () => setLoading(true),
+        onSuccess: () => {
+          setLoading(false)
+
+          toast.message('Contraseña restablecida con éxito', {
+            description: 'Ya puedes iniciar sesión con tu nueva contraseña.',
+          })
+          router.push('/login')
+        },
+      }
+    )
+
+    if (error) {
+      setLoading(false)
+      toast.error(
+        error.message || 'Unknown error occurred while resetting password'
+      )
+      console.error('Error resetting password:', error.message)
+      return
+    }
+  }
+
+  const changePassword = async ({
+    currentPassword,
+    newPassword,
+  }: changePasswordProps) => {
+    const { error } = await authClient.changePassword(
+      {
+        newPassword,
+        currentPassword,
+        revokeOtherSessions: true,
+      },
+      {
+        onRequest: () => setLoading(true),
+        onSuccess: () => {
+          setLoading(false)
+
+          toast.message('Contraseña cambiada con éxito', {
+            description: 'Tu contraseña ha sido actualizada.',
+          })
+        },
+      }
+    )
+
+    if (error) {
+      setLoading(false)
+      toast.error(
+        error.message || 'Unknown error occurred while changing password'
+      )
+      console.error('Error changing password:', error.message)
+      return
+    }
+  }
+
   return {
     loading,
     signInWithGoogle,
@@ -149,5 +245,8 @@ export function useAuth() {
     signUpWithEmail,
     signOut,
     sendVerificationEmail,
+    requestPasswordReset,
+    resetPassword,
+    changePassword,
   }
 }
