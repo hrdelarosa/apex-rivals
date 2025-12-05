@@ -2,6 +2,7 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { inter } from '@/src/config/fonts'
 import Providers from './providers'
+import { Toaster } from '@/src/components/ui/sonner'
 
 export const metadata: Metadata = {
   title: 'Apex Rivals',
@@ -18,6 +19,7 @@ export default function RootLayout({
       <body className={`${inter.className} antialiased`}>
         <Providers themeProps={{ defaultTheme: 'system' }}>
           {children}
+          <Toaster position="top-right" richColors closeButton />
         </Providers>
       </body>
     </html>
