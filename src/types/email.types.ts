@@ -3,8 +3,7 @@ import type { ReactElement, ReactNode } from 'react'
 export interface SendEmailParams {
   to: string
   subject: string
-  react?: ReactElement
-  html?: string
+  react: ReactElement
 }
 
 export interface EmailTemplateProps {
