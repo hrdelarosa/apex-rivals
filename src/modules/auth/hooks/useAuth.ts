@@ -1,6 +1,6 @@
+import { useState } from 'react'
 import { authClient } from '@/src/lib/auth-client'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
 import { toast } from 'sonner'
 import {
   changePasswordProps,
@@ -33,7 +33,7 @@ export function useAuth() {
       toast.error(
         error.message || 'Unknown error occurred during Google sign-in'
       )
-      console.error('Error logging in with Google:', error.message)
+      console.warn('Error logging in with Google:', error.message)
       return
     }
   }
@@ -60,9 +60,9 @@ export function useAuth() {
 
           if (ctx.error.status === 403) {
             toast.error(
-              'Por favor, verifica tu correo electrónico antes de iniciar sesión.'
+              'Tu correo no está verificado. Te enviamos un nuevo correo de verificación.'
             )
-            console.error('Email not verified:', ctx.error.message)
+            console.warn('Email not verified:', ctx.error.message)
           }
         },
       }
@@ -70,10 +70,12 @@ export function useAuth() {
 
     if (error || !data) {
       setLoading(false)
-      toast.error(
-        error.message || 'Unknown error occurred during email sign-in'
-      )
-      console.error('Error logging in with email:', error.message)
+
+      if (error.message && !error.message.includes('Email not verified'))
+        toast.error(
+          error.message || 'Unknown error occurred during email sign-in'
+        )
+      console.warn('Error logging in with email:', error?.message)
       return
     }
   }
@@ -88,7 +90,6 @@ export function useAuth() {
         email,
         password,
         name,
-        callbackURL: '/dashboard',
       },
       {
         onRequest: () => setLoading(true),
@@ -97,9 +98,10 @@ export function useAuth() {
 
           toast.message('¡Bienvenido a la grilla!', {
             description:
-              'Sistema de telemetría activado. Bienvenido a Apex Rivals.',
+              'Sistema de telemetría activado. Se ha enviado un correo de verificación a tu bandeja de entrada. Por favor, revisa tu correo para completar la activación.',
           })
-          router.push('/verify-email')
+
+          router.push('/login')
         },
       }
     )
@@ -109,7 +111,7 @@ export function useAuth() {
       toast.error(
         error.message || 'Unknown error occurred during email registration'
       )
-      console.error('Error registering with email:', error.message)
+      console.warn('Error registering with email:', error.message)
       return
     }
   }
@@ -118,7 +120,7 @@ export function useAuth() {
     await authClient.signOut({
       fetchOptions: {
         onSuccess: () => {
-          router.push('/login')
+          router.push('/')
         },
       },
     })
@@ -135,7 +137,7 @@ export function useAuth() {
         onSuccess: () => {
           setLoading(false)
 
-          toast.message('Correo de verificación enviado', {
+          toast.message('Correo de verificación enviado correctamente', {
             description:
               'Revisa tu bandeja de entrada para verificar tu dirección de correo electrónico.',
           })
@@ -146,7 +148,7 @@ export function useAuth() {
             ctx.error.message ||
               'Unknown error occurred while sending verification email'
           )
-          console.error('Error sending verification email:', ctx.error.message)
+          console.warn('Error sending verification email:', ctx.error.message)
         },
       }
     )
@@ -163,9 +165,9 @@ export function useAuth() {
         onSuccess: () => {
           setLoading(false)
 
-          toast.message('Correo para restablecer tu contraseña', {
+          toast.message('Solicitud enviada', {
             description:
-              'Por favor, revisa tu bandeja de entrada para restablecer tu contraseña.',
+              'Si este correo electrónico existe en nuestro sistema, comprueba tu correo electrónico para obtener el enlace de restablecimiento',
           })
         },
       }
@@ -177,7 +179,7 @@ export function useAuth() {
         error.message ||
           'Unknown error occurred while requesting password reset'
       )
-      console.error('Error requesting password reset:', error.message)
+      console.warn('Error requesting password reset:', error.message)
       return
     }
   }
@@ -211,7 +213,7 @@ export function useAuth() {
       toast.error(
         error.message || 'Unknown error occurred while resetting password'
       )
-      console.error('Error resetting password:', error.message)
+      console.warn('Error resetting password:', error.message)
       return
     }
   }
@@ -243,7 +245,7 @@ export function useAuth() {
       toast.error(
         error.message || 'Unknown error occurred while changing password'
       )
-      console.error('Error changing password:', error.message)
+      console.warn('Error changing password:', error.message)
       return
     }
   }
