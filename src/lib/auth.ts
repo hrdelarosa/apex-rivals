@@ -39,5 +39,8 @@ export const auth = betterAuth({
         react: createElement(EmailVerification, { url }),
       })
     },
+    sendOnSignUp: true,
+    sendOnSignIn: true,
+    autoSignInAfterVerification: true,
   },
 })
