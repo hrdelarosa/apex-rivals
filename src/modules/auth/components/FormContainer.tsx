@@ -31,7 +31,7 @@ export default function FormContainer({ children, loading, typeAuth }: Props) {
       {children}
 
       <Field className="gap-2.5">
-        <Button type="submit" className="cursor-pointer">
+        <Button type="submit" disabled={loading} className="cursor-pointer">
           {loading ? (
             <>
               <Spinner />
