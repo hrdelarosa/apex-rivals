@@ -16,7 +16,7 @@ import { Input } from '@/src/components/ui/input'
 
 export default function FormRegister() {
   const { signUpWithEmail, loading } = useAuth()
-  const { register, handleSubmit, errors, onSubmit } =
+  const { register, handleSubmit, errors, onSubmit, reset } =
     useFormWithValidation<RegisterTypes>({
       formSchema: RegisterSchema,
       onSubmit: async (data) => {
@@ -25,6 +25,7 @@ export default function FormRegister() {
           email: data.email,
           password: data.password,
         })
+        reset()
       },
     })
 
