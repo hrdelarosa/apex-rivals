@@ -23,9 +23,11 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from './ui/sidebar'
+import { useAuth } from '../modules/auth/hooks/useAuth'
 
 export default function NavUser() {
   const { isMobile } = useSidebar()
+  const { signOut } = useAuth()
 
   return (
     <SidebarMenu>
@@ -95,7 +97,7 @@ export default function NavUser() {
 
             <DropdownMenuSeparator />
 
-            <DropdownMenuItem variant="destructive">
+            <DropdownMenuItem variant="destructive" onClick={signOut}>
               <IconLogout />
               Cerrar sesión
             </DropdownMenuItem>
