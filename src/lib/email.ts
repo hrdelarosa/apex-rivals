@@ -13,7 +13,7 @@ export async function sendEmail({ to, subject, react }: SendEmailParams) {
     if (!react)
       throw new Error('React element is required to generate email HTML')
 
-    const html = await render(react)
+    const html = await render(react, { pretty: false })
 
     const result = await transporter.sendMail({
       from: process.env.GMAIL_USER,

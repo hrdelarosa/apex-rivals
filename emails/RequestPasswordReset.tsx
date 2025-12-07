@@ -27,49 +27,65 @@ export default function RequestPasswordReset({
 
       <Body
         style={{
-          backgroundColor: 'white',
+          backgroundColor: '#ffffff',
           color: '#15151e',
-          fontFamily: 'Inter, sans-serif, system-ui, Roboto',
+          fontFamily:
+            '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+          margin: 0,
+          padding: 0,
         }}
       >
         <Preview>Restablece tu contraseña</Preview>
 
         <Container
           style={{
-            marginInline: 'auto',
-            marginBlock: '0px',
+            margin: '0 auto',
             maxWidth: '560px',
-            paddingInline: '0px',
-            paddingTop: '20px',
-            paddingBottom: '48px',
+            padding: '20px 0 48px',
           }}
         >
           <Img
-            src="https://raw.githubusercontent.com/hrdelarosa/apex-rivals/master/public/apex-rivals-logo.webp"
+            src="https://raw.githubusercontent.com/hrdelarosa/apex-rivals/master/public/apex-rivals.png"
             height="60"
             alt="Apex Rivals Logo"
+            style={{
+              display: 'block',
+              margin: '0 0 20px',
+            }}
           />
 
           <Heading
             style={{
               fontSize: '24px',
               fontWeight: '600',
-              paddingTop: '14px',
-              paddingInline: '0px',
-              paddingBottom: '0px',
+              margin: '0 0 20px',
               lineHeight: '1.3',
-              letterSpacing: '-0.5px',
+              color: '#15151e',
             }}
           >
             Restablece tu contraseña
           </Heading>
 
-          <Section style={{ paddingBlock: '14px', paddingInline: '0px' }}>
-            <Text style={{ fontSize: '15px', lineHeight: '1.4' }}>
+          <Section style={{ padding: '0' }}>
+            <Text
+              style={{
+                fontSize: '15px',
+                lineHeight: '24px',
+                margin: '0 0 16px',
+                color: '#15151e',
+              }}
+            >
               👋 Hola {userName}.
             </Text>
 
-            <Text style={{ fontSize: '15px', lineHeight: '1.4' }}>
+            <Text
+              style={{
+                fontSize: '15px',
+                lineHeight: '24px',
+                margin: '0 0 20px',
+                color: '#15151e',
+              }}
+            >
               Recientemente, alguien ha solicitado cambiar la contraseña de tu
               cuenta de Apex Rivals. Si has sido tú, puedes restablecer una
               nueva contraseña aquí.
@@ -78,13 +94,15 @@ export default function RequestPasswordReset({
             <Button
               style={{
                 backgroundColor: '#ff1e00',
-                color: 'white',
+                color: '#ffffff',
                 fontWeight: '600',
                 borderRadius: '6px',
                 textAlign: 'center',
-                display: 'block',
-                paddingInline: '23px',
-                paddingBlock: '11px',
+                textDecoration: 'none',
+                display: 'inline-block',
+                padding: '12px 24px',
+                fontSize: '15px',
+                lineHeight: '1',
               }}
               href={url}
             >
@@ -93,16 +111,22 @@ export default function RequestPasswordReset({
 
             <Text
               style={{
-                marginBottom: '14px',
-                marginInline: '0px',
-                lineHeight: '1.4',
                 fontSize: '15px',
+                lineHeight: '24px',
+                margin: '20px 0 16px',
+                color: '#15151e',
               }}
             >
               Este enlace y código solo será válido durante la próxima 1 hora.
               Si el enlace no funciona, puedes utilizar directamente el
               siguiente código desde esta página:{' '}
-              <Link href={`${baseUrl}/reset-password`}>
+              <Link
+                href={`${baseUrl}/reset-password`}
+                style={{
+                  color: '#ff1e00',
+                  textDecoration: 'underline',
+                }}
+              >
                 Página de restablecimiento
               </Link>
             </Text>
@@ -111,48 +135,72 @@ export default function RequestPasswordReset({
               style={{
                 fontFamily: 'monospace',
                 fontWeight: 'bold',
-                paddingInline: '4px',
-                paddingBlock: '1px',
+                padding: '8px 12px',
                 backgroundColor: '#dfe1e4',
                 color: '#3c4149',
                 fontSize: '21px',
-                letterSpacing: '-0.3px',
                 borderRadius: '6px',
+                display: 'inline-block',
+                margin: '0 0 16px',
               }}
             >
               {token}
             </code>
 
-            <Text style={{ fontSize: '15px', lineHeight: '1.4' }}>
+            <Text
+              style={{
+                fontSize: '15px',
+                lineHeight: '24px',
+                margin: '0 0 16px',
+                color: '#15151e',
+              }}
+            >
               Si no deseas cambiar tu contraseña o no solicitaste este cambio,
               puedes ignorar y eliminar este mensaje. Para mantener la seguridad
               de tu cuenta, no reenvíes este correo electrónico a nadie.
             </Text>
 
-            <Text style={{ fontSize: '15px', lineHeight: '1.4' }}>
+            <Text
+              style={{
+                fontSize: '15px',
+                lineHeight: '24px',
+                margin: '0 0 16px',
+                color: '#15151e',
+              }}
+            >
               ¡Vuelve a la pista con Apex Rivals!
             </Text>
 
             <Hr
               style={{
                 borderColor: '#dfe1e4',
-                marginTop: '42px',
-                marginBottom: '26px',
+                borderStyle: 'solid',
+                borderWidth: '1px 0 0',
+                margin: '40px 0 24px',
               }}
             />
 
             <Img
-              src="https://raw.githubusercontent.com/hrdelarosa/apex-rivals/master/public/apex-rivals-logo.webp"
+              src="https://raw.githubusercontent.com/hrdelarosa/apex-rivals/master/public/apex-rivals.png"
               height="26"
               alt="Apex Rivals Logo"
-              style={{ filter: 'grayscale(100%)' }}
+              style={{
+                display: 'block',
+                opacity: 0.5,
+                margin: '0 0 8px',
+              }}
             />
 
             <Link
               href={baseUrl}
-              style={{ fontSize: '13px', color: '#8898aa', lineHeight: '24px' }}
+              style={{
+                fontSize: '13px',
+                color: '#8898aa',
+                lineHeight: '24px',
+                textDecoration: 'none',
+              }}
             >
-              Apex Rivals.
+              Apex Rivals
             </Link>
           </Section>
         </Container>

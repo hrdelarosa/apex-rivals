@@ -23,45 +23,54 @@ export default function EmailVerification({ url }: EmailVerificationProps) {
 
       <Body
         style={{
-          backgroundColor: 'white',
+          backgroundColor: '#ffffff',
           color: '#15151e',
-          fontFamily: 'Inter, sans-serif, system-ui, Roboto',
+          fontFamily:
+            '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+          margin: 0,
+          padding: 0,
         }}
       >
         <Preview>Verifica tu dirección de correo electrónico</Preview>
 
         <Container
           style={{
-            marginInline: 'auto',
-            marginBlock: '0px',
+            margin: '0 auto',
             maxWidth: '560px',
-            paddingInline: '0px',
-            paddingTop: '20px',
-            paddingBottom: '48px',
+            padding: '20px 0 48px',
           }}
         >
           <Img
-            src="https://raw.githubusercontent.com/hrdelarosa/apex-rivals/master/public/apex-rivals-logo.webp"
+            src="https://raw.githubusercontent.com/hrdelarosa/apex-rivals/master/public/apex-rivals.png"
             height="60"
             alt="Apex Rivals Logo"
+            style={{
+              display: 'block',
+              margin: '0 0 20px',
+            }}
           />
 
           <Heading
             style={{
               fontSize: '24px',
               fontWeight: '600',
-              paddingTop: '14px',
-              paddingInline: '0px',
-              paddingBottom: '0px',
+              margin: '0 0 20px',
               lineHeight: '1.3',
-              letterSpacing: '-0.5px',
+              color: '#15151e',
             }}
           >
             Verifica tu dirección de correo electrónico
           </Heading>
 
-          <Section style={{ paddingBlock: '14px', paddingInline: '0px' }}>
-            <Text style={{ fontSize: '15px', lineHeight: '1.4' }}>
+          <Section style={{ padding: '0' }}>
+            <Text
+              style={{
+                fontSize: '15px',
+                lineHeight: '24px',
+                margin: '0 0 16px',
+                color: '#15151e',
+              }}
+            >
               Gracias por iniciar el proceso de creación de una nueva cuenta de
               Apex Rivals. Queremos asegurarnos de que realmente eres tú. Si no
               deseas crear una cuenta, puedes ignorar este mensaje.
@@ -70,8 +79,9 @@ export default function EmailVerification({ url }: EmailVerificationProps) {
             <Text
               style={{
                 fontSize: '15px',
-                lineHeight: '1.4',
-                paddingBottom: '8px',
+                lineHeight: '24px',
+                margin: '0 0 20px',
+                color: '#15151e',
               }}
             >
               Para verificar tu dirección de correo electrónico, haz clic en el
@@ -81,13 +91,15 @@ export default function EmailVerification({ url }: EmailVerificationProps) {
             <Button
               style={{
                 backgroundColor: '#ff1e00',
-                color: 'white',
+                color: '#ffffff',
                 fontWeight: '600',
                 borderRadius: '6px',
                 textAlign: 'center',
-                display: 'block',
-                paddingInline: '23px',
-                paddingBlock: '11px',
+                textDecoration: 'none',
+                display: 'inline-block',
+                padding: '12px 24px',
+                fontSize: '15px',
+                lineHeight: '1',
               }}
               href={url}
             >
@@ -96,10 +108,10 @@ export default function EmailVerification({ url }: EmailVerificationProps) {
 
             <Text
               style={{
-                marginBottom: '14px',
-                marginInline: '0px',
-                lineHeight: '1.4',
                 fontSize: '15px',
+                lineHeight: '24px',
+                margin: '20px 0 16px',
+                color: '#15151e',
               }}
             >
               Este enlace solo será válido durante la próxima 1 hora.
@@ -107,11 +119,10 @@ export default function EmailVerification({ url }: EmailVerificationProps) {
 
             <Text
               style={{
-                color: 'black',
-                marginBottom: '14px',
-                marginInline: '0px',
-                lineHeight: '1.4',
                 fontSize: '15px',
+                lineHeight: '24px',
+                margin: '0 0 16px',
+                color: '#15151e',
               }}
             >
               ¡Que gane el mejor estratega!
@@ -120,23 +131,33 @@ export default function EmailVerification({ url }: EmailVerificationProps) {
             <Hr
               style={{
                 borderColor: '#dfe1e4',
-                marginTop: '42px',
-                marginBottom: '26px',
+                borderStyle: 'solid',
+                borderWidth: '1px 0 0',
+                margin: '40px 0 24px',
               }}
             />
 
             <Img
-              src="https://raw.githubusercontent.com/hrdelarosa/apex-rivals/master/public/apex-rivals-logo.webp"
+              src="https://raw.githubusercontent.com/hrdelarosa/apex-rivals/master/public/apex-rivals.png"
               height="26"
               alt="Apex Rivals Logo"
-              style={{ filter: 'grayscale(100%)' }}
+              style={{
+                display: 'block',
+                opacity: 0.5,
+                margin: '0 0 8px',
+              }}
             />
 
             <Link
               href={baseUrl}
-              style={{ fontSize: '13px', color: '#8898aa', lineHeight: '24px' }}
+              style={{
+                fontSize: '13px',
+                color: '#8898aa',
+                lineHeight: '24px',
+                textDecoration: 'none',
+              }}
             >
-              Apex Rivals.
+              Apex Rivals
             </Link>
           </Section>
         </Container>
