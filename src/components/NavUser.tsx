@@ -6,6 +6,7 @@ import {
   IconNotification,
   IconUserCircle,
 } from '@tabler/icons-react'
+import { useNavUser } from '../hooks/useNavUser'
 
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import {
@@ -17,17 +18,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu'
-import {
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  useSidebar,
-} from './ui/sidebar'
-import { useAuth } from '../modules/auth/hooks/useAuth'
+import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from './ui/sidebar'
+import SkeletonNavUser from './skeletons/SkeletonNavUser'
 
 export default function NavUser() {
-  const { isMobile } = useSidebar()
-  const { signOut } = useAuth()
+  const { isMobile, signOut, user, isPending } = useNavUser()
+
+  if (isPending) return <SkeletonNavUser />
+  if (!user) return null
 
   return (
     <SidebarMenu>
@@ -40,16 +38,24 @@ export default function NavUser() {
             >
               <Avatar className="size-8 rounded-lg grayscale hover:grayscale-0 transition">
                 <AvatarImage
-                  src="https://ui.shadcn.com/avatars/shadcn.jpg"
-                  alt="User Avatar Shadcn"
+                  src={
+                    user?.image
+                      ? user.image
+                      : 'https://ui.shadcn.com/avatars/shadcn.jpg'
+                  }
+                  alt={`User Avatar ${user?.name}`}
                 />
-                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                <AvatarFallback className="rounded-lg">
+                  {user?.name.split(' ')[0].charAt(0)}
+                </AvatarFallback>
               </Avatar>
 
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium font-exo2">Hozmel</span>
+                <span className="truncate font-medium font-exo2">
+                  {user?.name.split(' ')[0]}
+                </span>
                 <span className="text-muted-foreground truncate text-xs font-exo2">
-                  hozmel0104@gmail.com
+                  {user?.email}
                 </span>
               </div>
 
@@ -67,15 +73,23 @@ export default function NavUser() {
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
                   <AvatarImage
-                    src="https://ui.shadcn.com/avatars/shadcn.jpg"
-                    alt="User Avatar Shadcn"
+                    src={
+                      user?.image
+                        ? user.image
+                        : 'https://ui.shadcn.com/avatars/shadcn.jpg'
+                    }
+                    alt={`User Avatar ${user?.name}`}
                   />
-                  <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                  <AvatarFallback className="rounded-lg">
+                    {user?.name.split(' ')[0].charAt(0)}
+                  </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium font-exo2">Hozmel</span>
+                  <span className="truncate font-medium font-exo2">
+                    {user?.name}
+                  </span>
                   <span className="text-muted-foreground truncate text-xs font-exo2">
-                    hozmel0104@gmail.com
+                    {user?.email}
                   </span>
                 </div>
               </div>
