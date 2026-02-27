@@ -7,6 +7,7 @@
 @theme {
   --color-warm-red: #ff1e00;
   --color-dark-bg: #15151e;
+  --color-card-primary: #1e1e2a;
 
   --font-exo2: 'Exo 2', sans-serif, system-ui, Roboto;
 }
