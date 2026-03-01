@@ -6,7 +6,7 @@ import ListFooter from './ui/ListFooter'
 export default function Footer() {
   return (
     <footer className="border-t py-12">
-      <div className="max-w-screen-2xl mx-10 flex flex-wrap justify-between gap-6">
+      <div className="max-w-screen-2xl mx-4 sm:mx-7 md:mx-10 flex flex-wrap justify-between gap-6">
         <div className="flex flex-col items-stretch flex-initial gap-4 w-full md:max-w-md">
           <Link href="/" className="flex items-center gap-1.5">
             <Image
@@ -31,7 +31,7 @@ export default function Footer() {
         <ListFooter title="Legal" listItems={ROUTESFOOTER.legal} />
       </div>
 
-      <div className="mt-10 pt-10 border-t max-w-screen-2xl mx-6 sm:mx-10 flex flex-wrap justify-between gap-6">
+      <div className="mt-10 pt-10 border-t max-w-screen-2xl mx-5 sm:mx-7 md:mx-10 flex flex-wrap justify-between gap-6">
         <p className="text-sm text-muted-foreground">
           &copy; {new Date().getFullYear()} Apex Rivals. Todos los derechos
           reservados.
