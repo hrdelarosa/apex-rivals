@@ -495,7 +495,7 @@ export const leagues = pgTable(
     index('idx_leagues_season_year').on(table.seasonYear),
     check(
       'chk_leagues_invite_code_private',
-      sql`(${table.type} = 'private' AND (${table.inviteCode}) = IS NOT NULL) OR (${table.type} <> 'private')`,
+      sql`(${table.type} = 'private' AND ${table.inviteCode} IS NOT NULL) OR (${table.type} <> 'private')`,
     ),
   ],
 )
