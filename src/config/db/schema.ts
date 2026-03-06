@@ -252,7 +252,7 @@ export const priceHistory = pgTable(
     assetId: text('assetId').notNull(),
     raceId: text('raceId')
       .notNull()
-      .references(() => seasons.year, { onDelete: 'cascade' }),
+      .references(() => races.id, { onDelete: 'cascade' }),
     price: decimal('price', { precision: 12, scale: 2 }).notNull(),
     createdAt: timestamp('createdAt', { withTimezone: true })
       .notNull()
@@ -599,7 +599,7 @@ export const transactions = pgTable(
       .references(() => teams.id, { onDelete: 'cascade' }),
     type: typeTransactionEnum('type').notNull(),
     subjectType: transactionSubjectEnum('subjectType').notNull(),
-    subjectId: text('subjectId').notNull(),
+    subjectId: text('subjectId'),
     amount: decimal('amount', { precision: 12, scale: 2 }).notNull(),
     raceId: text('raceId')
       .notNull()
