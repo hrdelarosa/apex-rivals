@@ -69,7 +69,6 @@ export default function FormLogin() {
                 placeholder="m@example.com"
                 autoComplete="email"
                 autoFocus
-                tabIndex={0}
               />
               <FieldError>{errors.email?.message}</FieldError>
             </Field>
@@ -77,8 +76,8 @@ export default function FormLogin() {
             <PasswordInput
               {...register('password')}
               id="password"
-              tabIndex={1}
               error={errors.password?.message}
+              autoComplete="current-password"
             >
               <div className="flex items-center justify-between">
                 <FieldLabel htmlFor="password">Contraseña</FieldLabel>

@@ -41,6 +41,8 @@ export default function FormRegister() {
                 id="name"
                 type="text"
                 placeholder="John Doe"
+                autoComplete="name"
+                autoFocus
               />
               <FieldError>{errors.name?.message}</FieldError>
             </Field>
@@ -52,6 +54,7 @@ export default function FormRegister() {
                 id="email"
                 type="email"
                 placeholder="m@example.com"
+                autoComplete="email"
               />
               <FieldError>{errors.email?.message}</FieldError>
             </Field>
@@ -61,6 +64,7 @@ export default function FormRegister() {
                 {...register('password')}
                 id="password"
                 label="Contraseña"
+                autoComplete="new-password"
                 error={errors.password?.message}
               />
 
@@ -68,6 +72,7 @@ export default function FormRegister() {
                 {...register('confirmPassword')}
                 id="confirm-password"
                 label="Confirmar contraseña"
+                autoComplete="new-password"
               />
 
               {errors.confirmPassword?.message ? (
