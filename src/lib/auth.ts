@@ -2,6 +2,8 @@ import { betterAuth } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import { db } from '../config/db'
 import { sendEmail } from './email'
+import { createElement } from 'react'
+import EmailVerification from '@/emails/EmailVerification'
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
@@ -33,7 +35,7 @@ export const auth = betterAuth({
       void sendEmail({
         to: user.email,
         subject: 'Verifica tu correo electrónico para Apex Rivals',
-        react: `¡Hola ${user.email}! Gracias por registrarte en Apex Rivals. Para completar tu registro, por favor verifica tu correo electrónico haciendo clic en el siguiente enlace: ${url}`,
+        react: createElement(EmailVerification, { url, email: user.email }),
       })
     },
   },

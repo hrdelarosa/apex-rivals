@@ -5,3 +5,8 @@ export interface SendEmailParams {
   subject: string
   react: ReactElement | string
 }
+
+export interface SendEmailVerificationParams {
+  url: string
+  email: string
+}
