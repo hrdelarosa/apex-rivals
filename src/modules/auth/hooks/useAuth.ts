@@ -11,7 +11,7 @@ import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
 export function useAuth() {
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   const router = useRouter()
 
   const signUp = async ({ email, password, name }: SignUpData) => {
@@ -64,12 +64,16 @@ export function useAuth() {
             toast.error(
               'Tu correo electrónico no ha sido verificado. Por favor, revisa tu bandeja de entrada y verifica tu correo para poder iniciar sesión.',
             )
+          } else if (ctx.error.message === 'Invalid email or password') {
+            toast.error(
+              'Correo electrónico o contraseña incorrectos. Por favor, inténtalo de nuevo.',
+            )
           } else {
             toast.error(
               'Error al iniciar sesión. Por favor, inténtalo de nuevo.',
             )
           }
-          console.error('Error signing in with email:', ctx.error.message)
+          console.warn('Error signing in with email:', ctx.error.message)
         },
       },
     )
