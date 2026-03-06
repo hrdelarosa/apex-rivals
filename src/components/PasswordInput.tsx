@@ -3,29 +3,34 @@
 import { EyeOffIcon, EyeIcon } from 'lucide-react'
 
 import { useState } from 'react'
-import { Field, FieldLabel } from './ui/field'
+import { Field, FieldError, FieldLabel } from './ui/field'
 import { InputGroup, InputGroupAddon, InputGroupInput } from './ui/input-group'
 import { Input } from './ui/input'
 import { Button } from './ui/button'
 
 interface Props extends React.ComponentProps<typeof Input> {
   label?: string
-  htmlFor?: string
   children?: React.ReactNode
+  error?: string | undefined
 }
 
-export default function PasswordInput({ label, children, ...props }: Props) {
+export default function PasswordInput({
+  label,
+  children,
+  error,
+  ...props
+}: Props) {
   const [showPassword, setShowPassword] = useState(false)
 
   return (
     <Field>
-      {label && <FieldLabel htmlFor={props.htmlFor}>{label}</FieldLabel>}
+      {label && <FieldLabel htmlFor={props.id}>{label}</FieldLabel>}
       {children}
 
       <InputGroup>
         <InputGroupInput
           {...props}
-          id={props.htmlFor}
+          id={props.id}
           type={showPassword ? 'text' : 'password'}
         />
         <InputGroupAddon align="inline-end">
@@ -39,6 +44,8 @@ export default function PasswordInput({ label, children, ...props }: Props) {
           </Button>
         </InputGroupAddon>
       </InputGroup>
+
+      <FieldError>{error}</FieldError>
     </Field>
   )
 }
