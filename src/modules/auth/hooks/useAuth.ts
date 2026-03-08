@@ -20,7 +20,6 @@ export function useAuth() {
         email,
         password,
         name,
-        callbackURL: '/dashboard',
       },
       {
         onRequest: () => setLoading(true),
@@ -31,11 +30,14 @@ export function useAuth() {
             description:
               'Sistema de telemetría activado. Se ha enviado un correo de verificación a tu bandeja de entrada. Por favor, revisa tu correo para completar la activación.',
           })
+
+          router.push('/login')
         },
         onError: (ctx) => {
           setLoading(false)
+          console.warn(ctx)
           toast.error('Error al registrarse. Por favor, inténtalo de nuevo.')
-          console.error('Error registering with email:', ctx.error.message)
+          console.warn('Error registering with email:', ctx.error.message)
         },
       },
     )
@@ -99,7 +101,7 @@ export function useAuth() {
           toast.error(
             'Error al iniciar sesión con Google. Por favor, inténtalo de nuevo.',
           )
-          console.error('Error signing in with Google:', ctx.error.message)
+          console.warn('Error signing in with Google:', ctx.error.message)
         },
       },
     )
@@ -115,7 +117,7 @@ export function useAuth() {
         },
         onError: (ctx) => {
           setLoading(false)
-          console.error('Error signing out:', ctx.error.message)
+          console.warn('Error signing out:', ctx.error.message)
         },
       },
     })
@@ -181,7 +183,7 @@ export function useAuth() {
           toast.error(
             'Error al restablecer la contraseña. Por favor, inténtalo de nuevo.',
           )
-          console.error('Error resetting password:', ctx.error.message)
+          console.warn('Error resetting password:', ctx.error.message)
         },
       },
     )
@@ -211,7 +213,7 @@ export function useAuth() {
           toast.error(
             'Error al cambiar la contraseña. Por favor, inténtalo de nuevo.',
           )
-          console.error('Error changing password:', ctx.error.message)
+          console.warn('Error changing password:', ctx.error.message)
         },
       },
     )
