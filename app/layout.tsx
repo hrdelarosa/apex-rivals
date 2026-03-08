@@ -2,7 +2,7 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { inter } from '@/src/config/fonts'
 import Providers from './providers'
-import { Toaster } from 'sonner'
+import { Toaster } from '@/src/components/ui/sonner'
 
 export const metadata: Metadata = {
   title: 'Apex Rivals',
