@@ -125,6 +125,7 @@ export function useAuth() {
     await authClient.requestPasswordReset(
       {
         email,
+        redirectTo: '/reset-password',
       },
       {
         onRequest: () => setLoading(true),
@@ -137,10 +138,23 @@ export function useAuth() {
         },
         onError: (ctx) => {
           setLoading(false)
-          toast.error(
-            'Error al solicitar restablecimiento de contraseña. Por favor, inténtalo de nuevo.',
-          )
-          console.error('Error requesting password reset:', ctx.error.message)
+          if (ctx.error.message === 'No user found with the provided email') {
+            toast.error(
+              'No se encontró una cuenta con ese correo electrónico. Por favor, verifica el correo ingresado e inténtalo de nuevo.',
+            )
+          } else if (
+            ctx.error.message ===
+            'Unknown error occurred while requesting password reset'
+          ) {
+            toast.error(
+              'Error desconocido al solicitar restablecimiento de contraseña. Por favor, inténtalo de nuevo.',
+            )
+          } else {
+            toast.error(
+              `Error al solicitar restablecimiento de contraseña. Por favor, inténtalo de nuevo.`,
+            )
+          }
+          console.warn('Error requesting password reset:', ctx.error.message)
         },
       },
     )
