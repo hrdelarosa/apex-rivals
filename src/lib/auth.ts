@@ -3,7 +3,7 @@ import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import { db } from '../config/db'
 import { sendEmail } from './email'
 import { createElement } from 'react'
-import EmailVerification from '@/emails/EmailVerification'
+import EmailVerification from '@/src/components/emails/EmailVerification'
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
