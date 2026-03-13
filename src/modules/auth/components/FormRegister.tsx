@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import { GoogleIcon } from '@/src/components/icons/googleIcon'
 
 import { Button } from '@/src/components/ui/button'
 import { Input } from '@/src/components/ui/input'
@@ -13,14 +12,15 @@ import {
   FieldLabel,
   FieldSeparator,
 } from '@/src/components/ui/field'
-import PasswordInput from '@/src/components/PasswordInput'
+import PasswordInput from './ui/password-input'
+import GoogleButton from './ui/google-button'
 
 import { useAuth } from '../hooks/useAuth'
 import { useValidatedForm } from '../hooks/useValidatedForm'
 import { RegisterFormTypes, registerSchema } from '../schemas/auth.schemas'
 
 export default function FormRegister() {
-  const { signUp, signInWithGoogle, loading } = useAuth()
+  const { signUp, loading } = useAuth()
   const { register, handleSubmit, errors } =
     useValidatedForm<RegisterFormTypes>({
       formSchema: registerSchema,
@@ -89,7 +89,7 @@ export default function FormRegister() {
         </Field>
 
         <Field>
-          <Button type="submit" className="w-full">
+          <Button type="submit" disabled={loading} className="w-full">
             Crear cuenta
           </Button>
         </Field>
@@ -98,16 +98,8 @@ export default function FormRegister() {
           O continua con
         </FieldSeparator>
 
-        <Field className="">
-          <Button
-            variant="outline"
-            type="button"
-            onClick={signInWithGoogle}
-            disabled={loading}
-          >
-            <GoogleIcon />
-            Registrate con Google
-          </Button>
+        <Field>
+          <GoogleButton />
 
           <FieldDescription className="text-center [&>a:hover]:text-foreground">
             ¿Ya tienes una cuenta? <Link href="/login">Inicia sesión</Link>

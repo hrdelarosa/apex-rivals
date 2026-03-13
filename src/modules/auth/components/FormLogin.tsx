@@ -1,9 +1,8 @@
 'use client'
 
-import { GoogleIcon } from '@/src/components/icons/googleIcon'
-
 import { useState } from 'react'
 import Link from 'next/link'
+
 import { Button } from '@/src/components/ui/button'
 import { Input } from '@/src/components/ui/input'
 import {
@@ -14,15 +13,16 @@ import {
   FieldLabel,
   FieldSeparator,
 } from '@/src/components/ui/field'
-import PasswordInput from '@/src/components/PasswordInput'
+import PasswordInput from './ui/password-input'
 import RequestPasswordResetDialog from './RequestPasswordResetDilog'
+import GoogleButton from './ui/google-button'
 
 import { useAuth } from '../hooks/useAuth'
 import { useValidatedForm } from '../hooks/useValidatedForm'
 import { LoginFormTypes, loginSchema } from '../schemas/auth.schemas'
 
 export default function FormLogin() {
-  const { signIn, signInWithGoogle, loading } = useAuth()
+  const { signIn, loading } = useAuth()
   const { register, handleSubmit, errors } = useValidatedForm<LoginFormTypes>({
     formSchema: loginSchema,
     onSubmit: async ({ email, password }) => {
@@ -41,15 +41,7 @@ export default function FormLogin() {
       <form onSubmit={handleSubmit}>
         <FieldGroup>
           <Field>
-            <Button
-              variant="outline"
-              type="button"
-              onClick={signInWithGoogle}
-              disabled={loading}
-            >
-              <GoogleIcon />
-              Iniciar sesión con Google
-            </Button>
+            <GoogleButton />
           </Field>
 
           <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">
