@@ -3,10 +3,14 @@
 import { EyeOffIcon, EyeIcon } from 'lucide-react'
 
 import { useState } from 'react'
-import { Field, FieldError, FieldLabel } from './ui/field'
-import { InputGroup, InputGroupAddon, InputGroupInput } from './ui/input-group'
-import { Input } from './ui/input'
-import { Button } from './ui/button'
+import { Field, FieldError, FieldLabel } from '@/src/components/ui/field'
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from '@/src/components/ui/input-group'
+import { Input } from '@/src/components/ui/input'
+import { Button } from '@/src/components/ui/button'
 
 interface Props extends React.ComponentProps<typeof Input> {
   label?: string
