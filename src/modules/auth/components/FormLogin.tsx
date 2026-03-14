@@ -38,7 +38,7 @@ export default function FormLogin() {
         onOpenChange={setOpenDialog}
       />
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} noValidate>
         <FieldGroup>
           <Field>
             <GoogleButton />

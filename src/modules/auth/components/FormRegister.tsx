@@ -30,7 +30,7 @@ export default function FormRegister() {
     })
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} noValidate>
       <FieldGroup>
         <Field>
           <FieldGroup className="gap-3">
