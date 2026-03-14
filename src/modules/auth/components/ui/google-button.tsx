@@ -14,7 +14,7 @@ export default function GoogleButton() {
       disabled={loading}
     >
       <GoogleIcon />
-      Iniciar sesión con Google
+      Continuar con Google
     </Button>
   )
 }
