@@ -159,7 +159,11 @@ describe('FormRegister', () => {
     })
     render(<FormRegister />)
 
-    expect(screen.getByRole('button', { name: 'Crear cuenta' })).toBeDisabled()
+    const submitButton = screen
+      .getAllByRole('button')
+      .find((button) => button.getAttribute('type') === 'submit')
+
+    expect(submitButton).toBeDisabled()
   })
 
   it('should enable submit button when loading is false', async () => {

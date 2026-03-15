@@ -137,7 +137,10 @@ describe('RequestPasswordResetDialog', () => {
     })
     render(<RequestPasswordResetDialog open={true} onOpenChange={() => {}} />)
 
-    expect(screen.getByRole('button', { name: 'Enviar' })).toBeDisabled()
+    const submitButton = screen
+      .getAllByRole('button')
+      .find((button) => button.getAttribute('type') === 'submit')
+    expect(submitButton).toBeDisabled()
   })
 
   it('should not call requestPasswordReset when loading is false', async () => {
@@ -153,6 +156,9 @@ describe('RequestPasswordResetDialog', () => {
     })
     render(<RequestPasswordResetDialog open={true} onOpenChange={() => {}} />)
 
-    expect(screen.getByRole('button', { name: 'Enviar' })).not.toBeDisabled()
+    const submitButton = screen
+      .getAllByRole('button')
+      .find((button) => button.getAttribute('type') === 'submit')
+    expect(submitButton).not.toBeDisabled()
   })
 })
