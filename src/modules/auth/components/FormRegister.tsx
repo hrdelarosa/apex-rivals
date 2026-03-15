@@ -4,6 +4,7 @@ import Link from 'next/link'
 
 import { Button } from '@/src/components/ui/button'
 import { Input } from '@/src/components/ui/input'
+import { Spinner } from '@/src/components/ui/spinner'
 import {
   Field,
   FieldDescription,
@@ -90,7 +91,7 @@ export default function FormRegister() {
 
         <Field>
           <Button type="submit" disabled={loading} className="w-full">
-            Crear cuenta
+            {loading ? <Spinner /> : 'Crear cuenta'}
           </Button>
         </Field>
 

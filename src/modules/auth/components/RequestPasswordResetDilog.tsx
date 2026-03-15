@@ -3,6 +3,7 @@ import { MailIcon } from 'lucide-react'
 import { Button } from '@/src/components/ui/button'
 import { Input } from '@/src/components/ui/input'
 import { Field, FieldError, FieldLabel } from '@/src/components/ui/field'
+import { Spinner } from '@/src/components/ui/spinner'
 import {
   Dialog,
   DialogClose,
@@ -72,7 +73,7 @@ export default function RequestPasswordResetDialog({
             </DialogClose>
 
             <Button type="submit" disabled={loading}>
-              Enviar
+              {loading ? <Spinner /> : 'Enviar'}
             </Button>
           </DialogFooter>
         </form>

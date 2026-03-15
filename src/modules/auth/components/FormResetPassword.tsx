@@ -3,6 +3,7 @@
 import { useSearchParams } from 'next/navigation'
 import { Button } from '@/src/components/ui/button'
 import { Input } from '@/src/components/ui/input'
+import { Spinner } from '@/src/components/ui/spinner'
 import {
   Field,
   FieldError,
@@ -68,7 +69,7 @@ export default function FormResetPassword() {
 
         <Field>
           <Button type="submit" disabled={loading}>
-            Restablecer contraseña
+            {loading ? <Spinner /> : 'Restablecer contraseña'}
           </Button>
         </Field>
       </FieldGroup>

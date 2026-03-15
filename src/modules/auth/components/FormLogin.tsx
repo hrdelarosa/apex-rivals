@@ -5,6 +5,7 @@ import Link from 'next/link'
 
 import { Button } from '@/src/components/ui/button'
 import { Input } from '@/src/components/ui/input'
+import { Spinner } from '@/src/components/ui/spinner'
 import {
   Field,
   FieldDescription,
@@ -87,7 +88,7 @@ export default function FormLogin() {
 
           <Field>
             <Button type="submit" disabled={loading}>
-              Iniciar sesión
+              {loading ? <Spinner /> : 'Iniciar sesión'}
             </Button>
 
             <FieldDescription className="text-center [&>a:hover]:text-foreground">
