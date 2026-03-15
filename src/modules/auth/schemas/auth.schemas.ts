@@ -50,6 +50,7 @@ export const changePasswordSchema = z
   })
   .refine((data) => data.newPassword === data.confirmPassword, {
     message: 'Las contraseñas no coinciden',
+    path: ['confirmPassword'],
   })
 
 export type LoginFormTypes = z.infer<typeof loginSchema>
