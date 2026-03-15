@@ -3,8 +3,13 @@
 import { useSearchParams } from 'next/navigation'
 import { Button } from '@/src/components/ui/button'
 import { Input } from '@/src/components/ui/input'
-import { Field, FieldGroup, FieldLabel } from '@/src/components/ui/field'
-import PasswordInput from '@/src/components/PasswordInput'
+import {
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from '@/src/components/ui/field'
+import PasswordInput from '../components/ui/password-input'
 
 import { useAuth } from '../hooks/useAuth'
 import { useValidatedForm } from '../hooks/useValidatedForm'
@@ -21,6 +26,9 @@ export default function FormResetPassword() {
   const { register, handleSubmit, errors } =
     useValidatedForm<ChangePasswordFormTypes>({
       formSchema: changePasswordSchema,
+      defaultValues: {
+        token: token || '',
+      },
       onSubmit: async ({ newPassword, token }) => {
         await resetPassword({ newPassword, token })
       },
@@ -30,13 +38,14 @@ export default function FormResetPassword() {
     <form onSubmit={handleSubmit}>
       <FieldGroup>
         <Field>
-          <FieldLabel htmlFor="new-password">Código</FieldLabel>
+          <FieldLabel htmlFor="token">Código</FieldLabel>
           <Input
-            {...register('token', { value: token || '' })}
+            {...register('token')}
             id="token"
             type="text"
             disabled={!!token}
           />
+          <FieldError>{errors.token?.message}</FieldError>
         </Field>
         <div className="flex flex-col gap-3">
           <PasswordInput
