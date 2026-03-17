@@ -1,4 +1,4 @@
-import { ROUTESFOOTER } from '@/src/config/routes'
+import { ROUTES_FOOTER } from '@/src/config/routes'
 import Link from 'next/link'
 import Image from 'next/image'
 import ListFooter from './ui/ListFooter'
@@ -26,9 +26,9 @@ export default function Footer() {
           </p>
         </div>
 
-        <ListFooter title="Recursos" listItems={ROUTESFOOTER.resources} />
-        <ListFooter title="Reglas de juego" listItems={ROUTESFOOTER.rules} />
-        <ListFooter title="Legal" listItems={ROUTESFOOTER.legal} />
+        <ListFooter title="Recursos" listItems={ROUTES_FOOTER.resources} />
+        <ListFooter title="Reglas de juego" listItems={ROUTES_FOOTER.rules} />
+        <ListFooter title="Legal" listItems={ROUTES_FOOTER.legal} />
       </div>
 
       <div className="mt-10 pt-10 border-t max-w-screen-2xl mx-5 sm:mx-7 md:mx-10 flex flex-wrap justify-between gap-6">

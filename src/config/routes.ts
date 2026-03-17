@@ -1,11 +1,11 @@
-export const ROUTESHEADER = [
+export const ROUTES_HEADER = [
   { label: 'Como funciona', href: '#how-it-works' },
   { label: 'Características', href: '#features' },
   { label: 'Clasificación', href: '#standings' },
   { label: 'Reglas', href: '/rules' },
 ]
 
-export const ROUTESFOOTER = {
+export const ROUTES_FOOTER = {
   resources: [
     { label: 'Acerca de', href: '#about' },
     { label: 'Preguntas frecuentes', href: '#faq' },

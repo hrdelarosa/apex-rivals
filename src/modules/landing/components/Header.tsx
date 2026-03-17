@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '@/src/components/ui/button'
-import { ROUTESHEADER } from '@/src/config/routes'
+import { ROUTES_HEADER } from '@/src/config/routes'
 
 export default function Header() {
   return (
@@ -22,7 +22,7 @@ export default function Header() {
         </Link>
 
         <div className="hidden lg:flex items-center gap-5">
-          {ROUTESHEADER.map((route) => (
+          {ROUTES_HEADER.map((route) => (
             <Link
               key={route.label}
               href={route.href}
