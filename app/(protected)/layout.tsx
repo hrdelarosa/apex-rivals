@@ -2,8 +2,9 @@ import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { auth } from '@/src/lib/auth'
 
+import { SessionProvider } from '@/src/modules/auth/context/session-context'
+import { TooltipProvider } from '@/src/components/ui/tooltip'
 import { SidebarInset, SidebarProvider } from '@/src/components/ui/sidebar'
-import ProtectedProvider from './ProtectedProvider'
 import AppSidebar from '@/src/components/sidebar/app-sidebar'
 import SiteHeader from '@/src/components/sidebar/site-header'
 
@@ -21,12 +22,14 @@ export default async function RootLayout({
   }
 
   return (
-    <SidebarProvider>
-      <AppSidebar variant="inset" />
-      <SidebarInset>
-        <SiteHeader />
-        <ProtectedProvider user={session.user}>{children}</ProtectedProvider>
-      </SidebarInset>
-    </SidebarProvider>
+    <SessionProvider user={session.user ?? null}>
+      <SidebarProvider>
+        <AppSidebar variant="inset" />
+        <SidebarInset>
+          <SiteHeader />
+          <TooltipProvider>{children}</TooltipProvider>
+        </SidebarInset>
+      </SidebarProvider>
+    </SessionProvider>
   )
 }
