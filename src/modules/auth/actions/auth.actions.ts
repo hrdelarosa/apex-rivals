@@ -1,5 +1,6 @@
 'use server'
 
+import { headers } from 'next/headers'
 import {
   ChangePasswordData,
   RequestPasswordResetData,
@@ -98,7 +99,9 @@ export async function signInWithGoogleAction(): Promise<ActionResponse> {
 
 export async function signOutAction(): Promise<ActionResponse> {
   try {
-    await auth.api.signOut()
+    await auth.api.signOut({
+      headers: await headers(),
+    })
 
     return { success: true }
   } catch (error) {
