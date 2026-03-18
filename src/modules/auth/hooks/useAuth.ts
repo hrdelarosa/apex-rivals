@@ -7,14 +7,14 @@ import {
   SignUpData,
 } from '../types/auth.types'
 import {
-  signUpService,
-  signInSevice,
-  signInWithGoogleService,
-  signOutService,
-  requestPasswordResetService,
-  resetPasswordService,
-  changePasswordService,
-} from '../services/auth.services'
+  signUpAction,
+  signInAction,
+  signInWithGoogleAction,
+  signOutAction,
+  requestPasswordResetAction,
+  resetPasswordAction,
+  changePasswordAction,
+} from '../actions/auth.actions'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
@@ -24,7 +24,7 @@ export function useAuth() {
 
   const signUp = async ({ email, password, name }: SignUpData) => {
     setLoading(true)
-    const result = await signUpService({ email, password, name })
+    const result = await signUpAction({ email, password, name })
     setLoading(false)
 
     if (!result.success) {
@@ -41,7 +41,7 @@ export function useAuth() {
 
   const signIn = async ({ email, password }: SignInData) => {
     setLoading(true)
-    const result = await signInSevice({ email, password })
+    const result = await signInAction({ email, password })
     setLoading(false)
 
     if (!result.success) {
@@ -61,11 +61,13 @@ export function useAuth() {
         description: 'Tu equipo Apex Rivals te esperaba.',
       })
     }
+
+    router.push('/dashboard')
   }
 
   const signInWithGoogle = async () => {
     setLoading(true)
-    const result = await signInWithGoogleService()
+    const result = await signInWithGoogleAction()
     setLoading(false)
 
     if (!result.success) {
@@ -81,7 +83,7 @@ export function useAuth() {
 
   const signOut = async () => {
     setLoading(true)
-    const result = await signOutService()
+    const result = await signOutAction()
     setLoading(false)
 
     if (!result.success) {
@@ -93,7 +95,7 @@ export function useAuth() {
 
   const requestPasswordReset = async ({ email }: RequestPasswordResetData) => {
     setLoading(true)
-    const result = await requestPasswordResetService({ email })
+    const result = await requestPasswordResetAction({ email })
     setLoading(false)
 
     if (!result.success) {
@@ -124,7 +126,7 @@ export function useAuth() {
 
   const resetPassword = async ({ newPassword, token }: ResetPasswordData) => {
     setLoading(true)
-    const result = await resetPasswordService({ newPassword, token })
+    const result = await resetPasswordAction({ newPassword, token })
     setLoading(false)
 
     if (!result.success) {
@@ -145,7 +147,7 @@ export function useAuth() {
     newPassword,
   }: ChangePasswordData) => {
     setLoading(true)
-    const result = await changePasswordService({ currentPassword, newPassword })
+    const result = await changePasswordAction({ currentPassword, newPassword })
     setLoading(false)
 
     if (!result.success) {
