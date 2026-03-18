@@ -3,9 +3,11 @@ import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import { db } from '../config/db'
 import { sendEmail } from './email'
 import { createElement } from 'react'
+import { nextCookies } from 'better-auth/next-js'
 import EmailVerification from '@/src/components/emails/EmailVerification'
 
 export const auth = betterAuth({
+  plugins: [nextCookies()],
   database: drizzleAdapter(db, {
     provider: 'pg',
   }),
