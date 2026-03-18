@@ -7,7 +7,7 @@ import {
   IconUserCircle,
 } from '@tabler/icons-react'
 
-import { Avatar, AvatarImage } from '../ui/avatar'
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import {
   SidebarMenu,
   SidebarMenuItem,
@@ -23,9 +23,17 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu'
+import { useAuth } from '@/src/modules/auth/hooks/useAuth'
+import { useSession } from '@/src/modules/auth/hooks/useSession'
 
 export function NavUser() {
   const { isMobile } = useSidebar()
+  const { signOut, loading } = useAuth()
+  const { user } = useSession()
+
+  if (!user) {
+    return null
+  }
 
   return (
     <SidebarMenu>
@@ -36,17 +44,20 @@ export function NavUser() {
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
-              <Avatar className="size-8 rounded-lg grayscale hover:grayscale-0 transition">
+              <Avatar className="size-8 rounded-lg">
                 <AvatarImage
-                  src="https://ui.shadcn.com/avatars/shadcn.jpg"
-                  alt="User Avatar"
+                  src={user.image || undefined}
+                  alt={`User Avatar for ${user.name}`}
                 />
+                <AvatarFallback>
+                  {user?.name.split(' ')[0].charAt(0)}
+                </AvatarFallback>
               </Avatar>
 
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">John Doe</span>
+                <span className="truncate font-medium">{user.name}</span>
                 <span className="truncate text-xs text-muted-foreground">
-                  john.doe@example.com
+                  {user.email}
                 </span>
               </div>
 
@@ -60,23 +71,29 @@ export function NavUser() {
             align="end"
             sideOffset={4}
           >
-            <DropdownMenuLabel className="p-0 font-normal">
+            <DropdownMenuLabel className="p-0 font-normal group">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                <Avatar className="h-8 w-8 rounded-lg">
+                <Avatar className="size-8 rounded-lg grayscale group-hover:grayscale-0 transition">
                   <AvatarImage
-                    src="https://ui.shadcn.com/avatars/shadcn.jpg"
-                    alt="User Avatar"
+                    src={user.image || undefined}
+                    alt={`User Avatar for ${user.name}`}
                   />
+                  <AvatarFallback>
+                    {user?.name.split(' ')[0].charAt(0)}
+                  </AvatarFallback>
                 </Avatar>
+
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">John Doe</span>
+                  <span className="truncate font-medium">{user.name}</span>
                   <span className="truncate text-xs text-muted-foreground">
-                    john.doe@example.com
+                    {user.email}
                   </span>
                 </div>
               </div>
             </DropdownMenuLabel>
+
             <DropdownMenuSeparator />
+
             <DropdownMenuGroup>
               <DropdownMenuItem>
                 <IconUserCircle />
@@ -88,8 +105,14 @@ export function NavUser() {
                 Notificaciones
               </DropdownMenuItem>
             </DropdownMenuGroup>
+
             <DropdownMenuSeparator />
-            <DropdownMenuItem variant="destructive">
+
+            <DropdownMenuItem
+              variant="destructive"
+              onClick={signOut}
+              disabled={loading}
+            >
               <IconLogout />
               Cerrar sesión
             </DropdownMenuItem>
