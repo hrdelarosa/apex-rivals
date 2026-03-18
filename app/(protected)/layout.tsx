@@ -2,8 +2,8 @@ import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { auth } from '@/src/lib/auth'
 
-import { TooltipProvider } from '@/src/components/ui/tooltip'
 import { SidebarInset, SidebarProvider } from '@/src/components/ui/sidebar'
+import ProtectedProvider from './ProtectedProvider'
 import AppSidebar from '@/src/components/sidebar/app-sidebar'
 import SiteHeader from '@/src/components/sidebar/site-header'
 
@@ -25,7 +25,7 @@ export default async function RootLayout({
       <AppSidebar variant="inset" />
       <SidebarInset>
         <SiteHeader />
-        <TooltipProvider>{children}</TooltipProvider>
+        <ProtectedProvider user={session.user}>{children}</ProtectedProvider>
       </SidebarInset>
     </SidebarProvider>
   )
