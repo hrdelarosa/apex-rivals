@@ -1,3 +1,7 @@
+import { headers } from 'next/headers'
+import { redirect } from 'next/navigation'
+import { auth } from '@/src/lib/auth'
+
 import Header from '@/src/modules/landing/components/Header'
 import Hero from '@/src/modules/landing/components/Hero'
 import ContainerSection from '@/src/modules/landing/components/ui/ContainerSection'
@@ -7,7 +11,15 @@ import HowItWorks from '@/src/modules/landing/components/HowItWorks'
 import TitleSection from '@/src/modules/landing/components/ui/TitleSection'
 import FAQ from '@/src/modules/landing/components/FAQ'
 
-export default function Home() {
+export default async function Home() {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  })
+
+  if (session) {
+    redirect('/dashboard')
+  }
+
   return (
     <>
       <Header />
