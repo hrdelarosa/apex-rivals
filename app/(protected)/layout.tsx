@@ -8,7 +8,7 @@ import { SidebarInset, SidebarProvider } from '@/src/components/ui/sidebar'
 import AppSidebar from '@/src/components/sidebar/app-sidebar'
 import SiteHeader from '@/src/components/sidebar/site-header'
 
-export default async function RootLayout({
+export default async function ProtectedLayout({
   children,
 }: {
   children: React.ReactNode
