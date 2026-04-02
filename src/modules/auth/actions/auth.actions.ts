@@ -13,7 +13,7 @@ import { auth } from '@/src/lib/auth'
 interface ActionResponse<T = null> {
   success: boolean
   message?: string
-  status?: number
+  status?: number | string
   data?: T
 }
 

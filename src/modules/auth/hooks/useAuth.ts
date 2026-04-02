@@ -45,7 +45,11 @@ export function useAuth() {
     setLoading(false)
 
     if (!result.success) {
-      if (result.status === 403) {
+      if (
+        result.status === 403 ||
+        result.status === 'FORBIDDEN' ||
+        result.message?.includes('Email not verified')
+      ) {
         toast.error(
           'Tu correo electrónico no ha sido verificado. Por favor, revisa tu bandeja de entrada y verifica tu correo para poder iniciar sesión.',
         )
