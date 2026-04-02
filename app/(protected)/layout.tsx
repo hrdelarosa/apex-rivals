@@ -27,7 +27,7 @@ export default async function ProtectedLayout({
         <AppSidebar variant="inset" />
         <SidebarInset>
           <SiteHeader />
-          <TooltipProvider>{children}</TooltipProvider>
+          {children}
         </SidebarInset>
       </SidebarProvider>
     </SessionProvider>
