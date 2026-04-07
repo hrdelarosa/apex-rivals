@@ -1,6 +1,6 @@
 import { betterAuth } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
-import { db } from '../config/db'
+import { db } from '../db'
 import { sendEmail } from './email'
 import { createElement } from 'react'
 import { nextCookies } from 'better-auth/next-js'
