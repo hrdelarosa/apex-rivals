@@ -9,7 +9,6 @@ import {
 import {
   signUpAction,
   signInAction,
-  signInWithGoogleAction,
   signOutAction,
   requestPasswordResetAction,
   resetPasswordAction,
@@ -17,6 +16,7 @@ import {
 } from '../actions/auth.actions'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
+import { authClient } from '@/src/lib/auth-client'
 
 export function useAuth() {
   const [loading, setLoading] = useState(false)
@@ -71,17 +71,24 @@ export function useAuth() {
 
   const signInWithGoogle = async () => {
     setLoading(true)
-    const result = await signInWithGoogleAction()
-    setLoading(false)
 
-    if (!result.success) {
-      toast.error(
-        'Error al iniciar sesión con Google. Por favor, inténtalo de nuevo.',
+    try {
+      await authClient.signIn.social(
+        {
+          provider: 'google',
+          callbackURL: '/dashboard',
+        },
+        {
+          onError: ({ error }) => {
+            toast.error(
+              error?.message ||
+                'Error al iniciar sesión con Google. Por favor, inténtalo de nuevo.',
+            )
+          },
+        },
       )
-    } else {
-      toast.message('¡Bienvenido a Apex Rivals!', {
-        description: 'Tu equipo Apex Rivals te esperaba.',
-      })
+    } finally {
+      setLoading(false)
     }
   }
 

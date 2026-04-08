@@ -76,27 +76,6 @@ export async function signInAction({
   }
 }
 
-export async function signInWithGoogleAction(): Promise<ActionResponse> {
-  try {
-    await auth.api.signInSocial({
-      body: {
-        provider: 'google',
-        callbackURL: '/dashboard',
-      },
-    })
-
-    return { success: true }
-  } catch (error) {
-    return {
-      success: false,
-      message:
-        error instanceof Error
-          ? error.message
-          : 'Se ha producido un error al continuar con Google.',
-    }
-  }
-}
-
 export async function signOutAction(): Promise<ActionResponse> {
   try {
     await auth.api.signOut({
