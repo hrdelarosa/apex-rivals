@@ -290,7 +290,7 @@ export const driverConstructorSeason = pgTable(
       table.driverId,
       table.seasonYear,
     ),
-    uniqueIndex('uidx_driver_constructor_season_constructor').on(
+    index('idx_driver_constructor_season_constructor').on(
       table.constructorId,
       table.seasonYear,
     ),
