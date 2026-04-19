@@ -409,32 +409,36 @@ export const lineups = pgTable(
   ],
 )
 
-export const transactions = pgTable('transactions', {
-  id: text('id').primaryKey(),
-  teamId: text('teamId')
-    .notNull()
-    .references(() => teams.id, { onDelete: 'cascade' }),
-  type: typeTransactionEnum('type').notNull(),
-  subjectType: transactionSubjectEnum('subjectType').notNull(),
-  subjectId: text('subjectId'),
-  amount: decimal('amount', { precision: 12, scale: 2 }).notNull(),
-  raceId: text('raceId')
-    .notNull()
-    .references(() => races.id, { onDelete: 'cascade' }),
-  createdAt: timestamp('createdAt', { withTimezone: true })
-    .notNull()
-    .defaultNow(),
-}, (table) => [
-  index('idx_transactions_team_race').on(table.teamId, table.raceId),
-  check(
-    'chk_transactions_subject_consistency',
-    sql`
+export const transactions = pgTable(
+  'transactions',
+  {
+    id: text('id').primaryKey(),
+    teamId: text('teamId')
+      .notNull()
+      .references(() => teams.id, { onDelete: 'cascade' }),
+    type: typeTransactionEnum('type').notNull(),
+    subjectType: transactionSubjectEnum('subjectType').notNull(),
+    subjectId: text('subjectId'),
+    amount: decimal('amount', { precision: 12, scale: 2 }).notNull(),
+    raceId: text('raceId')
+      .notNull()
+      .references(() => races.id, { onDelete: 'cascade' }),
+    createdAt: timestamp('createdAt', { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    index('idx_transactions_team_race').on(table.teamId, table.raceId),
+    check(
+      'chk_transactions_subject_consistency',
+      sql`
       (${table.subjectType} = 'fee' AND ${table.subjectId} IS NULL)
       OR
       (${table.subjectType} IN ('driver', 'constructor') AND ${table.subjectId} IS NOT NULL)
     `,
-  ),
-])
+    ),
+  ],
+)
 
 export const boosterCatalog = pgTable('boosterCatalog', {
   id: text('id').primaryKey(),
@@ -443,6 +447,7 @@ export const boosterCatalog = pgTable('boosterCatalog', {
   description: varchar('description', { length: 500 }).notNull(),
   multiplier: decimal('multiplier', { precision: 4, scale: 2 }).notNull(),
   appliesTo: assetTypeEnum('appliesTo'),
+  imageUrl: text('imageUrl'),
   isActive: boolean('isActive').notNull().default(true),
   createdAt: timestamp('createdAt', { withTimezone: true })
     .notNull()
