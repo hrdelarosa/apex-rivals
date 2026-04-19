@@ -1,0 +1,20 @@
+ALTER TABLE "public"."account" ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
+ALTER TABLE "public"."boosterCatalog" ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
+ALTER TABLE "public"."constructors" ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
+ALTER TABLE "public"."drivers" ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
+ALTER TABLE "public"."fantasyPoints" ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
+ALTER TABLE "public"."fantasyPointsBreakdown" ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
+ALTER TABLE "public"."leagueMemberships" ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
+ALTER TABLE "public"."leagues" ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
+ALTER TABLE "public"."lineUps" ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
+ALTER TABLE "public"."priceHistory" ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
+ALTER TABLE "public"."races" ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
+ALTER TABLE "public"."scoringRules" ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
+ALTER TABLE "public"."seasons" ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
+ALTER TABLE "public"."session" ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
+ALTER TABLE "public"."teams" ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
+ALTER TABLE "public"."transactions" ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
+ALTER TABLE "public"."user" ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
+ALTER TABLE "public"."userBoosters" ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
+ALTER TABLE "public"."userProfile" ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
+ALTER TABLE "public"."verification" ENABLE ROW LEVEL SECURITY;
