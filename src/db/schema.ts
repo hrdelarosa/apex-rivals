@@ -14,23 +14,6 @@ import {
 } from 'drizzle-orm/pg-core'
 
 export const assetTypeEnum = pgEnum('assetType', ['driver', 'constructor'])
-export const assetClassEnum = pgEnum('assetClass', ['S', 'A', 'B', 'C'])
-export const typeSessionEnum = pgEnum('typeSession', [
-  'race',
-  'qualy',
-  'sprint',
-  'qualy_sprint',
-])
-export const pointsScoringEnum = pgEnum('pointsScoring', [
-  'position',
-  'bonus',
-  'penalty',
-])
-export const awardTypeEnum = pgEnum('awardType', [
-  'driverOfTheDay',
-  'fastestLap',
-  'polePosition',
-])
 export const typeLeagueEnum = pgEnum('typeLeague', [
   'global',
   'regional',
@@ -45,7 +28,7 @@ export const typeTransactionEnum = pgEnum('typeTransaction', [
   'buy',
   'sell',
   'penalty',
-  'ajustment',
+  'adjustment',
 ])
 export const transactionSubjectEnum = pgEnum('transactionSubject', [
   'driver',
@@ -56,6 +39,18 @@ export const boosterStatusEnum = pgEnum('boosterStatus', [
   'available',
   'used',
   'expired',
+])
+export const raceStatusEnum = pgEnum('raceStatus', [
+  'scheduled',
+  'postponed',
+  'cancelled',
+  'completed',
+])
+export const weekendFormatEnum = pgEnum('weekendFormat', ['normal', 'sprint'])
+export const pointsScoringEnum = pgEnum('pointsScoring', [
+  'position',
+  'bonus',
+  'penalty',
 ])
 
 export const user = pgTable('user', {
@@ -151,98 +146,120 @@ export const userProfile = pgTable(
 
 export const seasons = pgTable('seasons', {
   year: integer('year').primaryKey(),
-  isActive: boolean('isActive').notNull().default(false),
+  championshipName: varchar('championshipName', { length: 100 }).notNull(),
   createdAt: timestamp('createdAt', { withTimezone: true })
     .notNull()
     .defaultNow(),
 })
 
-export const circuits = pgTable('circuits', {
+export const constructors = pgTable('constructors', {
   id: text('id').primaryKey(),
-  name: varchar('name', { length: 255 }).notNull().unique(),
-  country: varchar('country', { length: 75 }).notNull(),
-  city: varchar('city', { length: 100 }).notNull(),
-  circuitLengthM: integer('circuitLengthM').notNull(),
-  numberOfTurns: integer('numberOfTurns').notNull(),
-  lapRecord: varchar('lapRecord', { length: 50 }).notNull(),
-  lapRecordYear: integer('lapRecordYear').notNull(),
+  logoUrl: text('logoUrl'),
+  primaryColor: varchar('primaryColor', { length: 7 }),
+  contrastColor: varchar('contrastColor', { length: 7 }),
+  isActive: boolean('isActive').notNull().default(true),
   createdAt: timestamp('createdAt', { withTimezone: true })
     .notNull()
     .defaultNow(),
-  updateAt: timestamp('updatedAt', { withTimezone: true })
+  updatedAt: timestamp('updatedAt', { withTimezone: true })
     .notNull()
     .defaultNow(),
 })
 
-export const constructors = pgTable(
-  'constructors',
-  {
-    id: text('id').primaryKey(),
-    name: varchar('name', { length: 255 }).notNull().unique(),
-    sortName: varchar('sortName', { length: 50 }).notNull(),
-    logoUrl: text('logoUrl'),
-    primaryColor: varchar('primaryColor', { length: 7 }),
-    constrastColor: varchar('contrastColor', { length: 7 }),
-    isActive: boolean('isActive').notNull().default(true),
-    createdAt: timestamp('createdAt', { withTimezone: true })
-      .notNull()
-      .defaultNow(),
-    updateAt: timestamp('updatedAt', { withTimezone: true })
-      .notNull()
-      .defaultNow(),
-  },
-  (table) => [index('idx_constructors_name').on(table.name)],
-)
+export const drivers = pgTable('drivers', {
+  id: text('id').primaryKey(),
+  portraitUrl: text('portraitUrl'),
+  isActive: boolean('isActive').notNull().default(true),
+  createdAt: timestamp('createdAt', { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+  updatedAt: timestamp('updatedAt', { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+})
 
-export const drivers = pgTable(
-  'drivers',
+export const races = pgTable(
+  'races',
   {
     id: text('id').primaryKey(),
-    firstName: varchar('firstName', { length: 100 }).notNull(),
-    lastName: varchar('lastName', { length: 100 }).notNull(),
-    fullName: varchar('fullName', { length: 255 }).notNull().unique(),
-    acronym: varchar('acronym', { length: 3 }).notNull().unique(),
-    nationality: varchar('nationality', { length: 75 }).notNull(),
-    number: integer('number').notNull(),
-    portraiUrl: text('portraitUrl'),
-    isActive: boolean('isActive').notNull().default(true),
+    name: varchar('name', { length: 255 }).notNull(),
+    seasonYear: integer('seasonYear')
+      .notNull()
+      .references(() => seasons.year, { onDelete: 'cascade' }),
+    round: integer('round').notNull(),
+    date: timestamp('date', { withTimezone: true }),
+    weekendFormat: weekendFormatEnum('weekendFormat')
+      .notNull()
+      .default('normal'),
+    status: raceStatusEnum('status').notNull().default('scheduled'),
+    marketCloseAt: timestamp('marketCloseAt', { withTimezone: true }),
     createdAt: timestamp('createdAt', { withTimezone: true })
       .notNull()
       .defaultNow(),
-    updateAt: timestamp('updatedAt', { withTimezone: true })
+    updatedAt: timestamp('updatedAt', { withTimezone: true })
       .notNull()
       .defaultNow(),
   },
   (table) => [
-    index('idx_drivers_number').on(table.number),
-    index('idx_drivers_acronym').on(table.acronym),
+    uniqueIndex('uidx_races_season_round').on(table.seasonYear, table.round),
   ],
 )
 
-export const assetClassHistory = pgTable(
-  'assetClassHistory',
+export const scoringRules = pgTable(
+  'scoringRules',
+  {
+    id: text('id').primaryKey(),
+    code: varchar('code', { length: 50 }).notNull().unique(),
+    description: varchar('description', { length: 255 }).notNull(),
+    points: integer('points').notNull(),
+    category: pointsScoringEnum('category').notNull(),
+    isActive: boolean('isActive').notNull().default(true),
+    createdAt: timestamp('createdAt', { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp('updatedAt', { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [index('idx_scoring_rules_code').on(table.code)],
+)
+
+export const fantasyPoints = pgTable(
+  'fantasyPoints',
   {
     id: text('id').primaryKey(),
     assetType: assetTypeEnum('assetType').notNull(),
     assetId: text('assetId').notNull(),
-    seasonYear: integer('seasonYear')
+    raceId: text('raceId')
       .notNull()
-      .references(() => seasons.year, { onDelete: 'cascade' }),
-    class: assetClassEnum('class').notNull(),
-    minPrice: decimal('minPrice', { precision: 12, scale: 2 }).notNull(),
-    createdAt: timestamp('createdAt', { withTimezone: true })
+      .references(() => races.id, { onDelete: 'cascade' }),
+    points: integer('points').notNull().default(0),
+    calculateAt: timestamp('calculateAt', { withTimezone: true })
       .notNull()
       .defaultNow(),
   },
   (table) => [
-    uniqueIndex('uidx_asset_class_history_asset_season').on(
+    uniqueIndex('uidx_fantasy_points_asset_race').on(
       table.assetType,
       table.assetId,
-      table.seasonYear,
+      table.raceId,
     ),
-    index('idx_asset_class_history_asset_id').on(table.assetId),
   ],
 )
+
+export const fantasyPointsBreakdown = pgTable('fantasyPointsBreakdown', {
+  id: text('id').primaryKey(),
+  fantasyPointsId: text('fantasyPointsId')
+    .notNull()
+    .references(() => fantasyPoints.id, { onDelete: 'cascade' }),
+  ruleId: text('ruleId')
+    .notNull()
+    .references(() => scoringRules.id, { onDelete: 'cascade' }),
+  pointsApplied: integer('pointsApplied').notNull(),
+  createdAt: timestamp('createdAt', { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+})
 
 export const priceHistory = pgTable(
   'priceHistory',
@@ -264,204 +281,6 @@ export const priceHistory = pgTable(
       table.assetId,
       table.raceId,
     ),
-    index('idx_price_history_asset_id').on(table.assetType, table.assetId),
-  ],
-)
-
-export const driverConstructorSeason = pgTable(
-  'driverConstructorSeason',
-  {
-    id: text('id').primaryKey(),
-    driverId: text('driverId')
-      .notNull()
-      .references(() => drivers.id, { onDelete: 'cascade' }),
-    constructorId: text('constructorId')
-      .notNull()
-      .references(() => constructors.id, { onDelete: 'cascade' }),
-    seasonYear: integer('seasonYear')
-      .notNull()
-      .references(() => seasons.year, { onDelete: 'cascade' }),
-    createdAt: timestamp('createdAt', { withTimezone: true })
-      .notNull()
-      .defaultNow(),
-  },
-  (table) => [
-    uniqueIndex('uidx_driver_constructor_season').on(
-      table.driverId,
-      table.seasonYear,
-    ),
-    index('idx_driver_constructor_season_constructor').on(
-      table.constructorId,
-      table.seasonYear,
-    ),
-  ],
-)
-
-export const races = pgTable(
-  'races',
-  {
-    id: text('id').primaryKey(),
-    name: varchar('name', { length: 255 }).notNull(),
-    circuitId: text('circuitId')
-      .notNull()
-      .references(() => circuits.id, { onDelete: 'cascade' }),
-    seasonYear: integer('seasonYear')
-      .notNull()
-      .references(() => seasons.year, { onDelete: 'cascade' }),
-    round: integer('round').notNull(),
-    laps: integer('laps').notNull(),
-    date: timestamp('date', { withTimezone: true }).notNull(),
-    isCompleted: boolean('isCompleted').notNull().default(false),
-    marketCloseAt: timestamp('marketCloseAt', { withTimezone: true }),
-    createdAt: timestamp('createdAt', { withTimezone: true })
-      .notNull()
-      .defaultNow(),
-    updatedAt: timestamp('updatedAt', { withTimezone: true })
-      .notNull()
-      .defaultNow(),
-  },
-  (table) => [
-    index('idx_races_season_year').on(table.seasonYear),
-    index('idx_races_date').on(table.date),
-    uniqueIndex('uidx_races_season_round').on(table.seasonYear, table.round),
-  ],
-)
-
-export const reaceSessions = pgTable(
-  'raceSessions',
-  {
-    id: text('id').primaryKey(),
-    raceId: text('raceId')
-      .notNull()
-      .references(() => races.id, { onDelete: 'cascade' }),
-    type: typeSessionEnum('type').notNull(),
-    startsAt: timestamp('startsAt', { withTimezone: true }).notNull(),
-    createdAt: timestamp('createdAt', { withTimezone: true })
-      .notNull()
-      .defaultNow(),
-    updatedAt: timestamp('updatedAt', { withTimezone: true })
-      .notNull()
-      .defaultNow(),
-  },
-  (table) => [
-    index('idx_race_sessions_race_id').on(table.raceId),
-    uniqueIndex('uid_race_sessions_race_type').on(table.raceId, table.type),
-  ],
-)
-
-export const results = pgTable(
-  'results',
-  {
-    id: text('id').primaryKey(),
-    driverId: text('driverId')
-      .notNull()
-      .references(() => drivers.id, { onDelete: 'cascade' }),
-    raceId: text('raceId')
-      .notNull()
-      .references(() => races.id, { onDelete: 'cascade' }),
-    raceSessionId: text('raceSessionId')
-      .notNull()
-      .references(() => reaceSessions.id, { onDelete: 'cascade' }),
-    position: integer('position').notNull(),
-    grid: integer('grid').notNull(),
-    lapsCompleted: integer('lapsCompleted').notNull(),
-    time: varchar('time', { length: 50 }),
-    fastestLapTime: varchar('fastestLapTime', { length: 20 }),
-    fastestLap: boolean('fastestLap').notNull().default(false),
-    dnf: boolean('dnf').notNull().default(false),
-    points: integer('points').notNull().default(0),
-    createdAt: timestamp('createdAt', { withTimezone: true })
-      .notNull()
-      .defaultNow(),
-    updatedAt: timestamp('updatedAt', { withTimezone: true })
-      .notNull()
-      .defaultNow(),
-  },
-  (table) => [
-    uniqueIndex('uidx_results_driver_session').on(
-      table.driverId,
-      table.raceSessionId,
-    ),
-    index('idx_results_race_session').on(table.raceId, table.raceSessionId),
-    index('idx_results_race_driver').on(table.raceId, table.driverId),
-  ],
-)
-
-export const scoringRules = pgTable(
-  'scoringRules',
-  {
-    id: text('id').primaryKey(),
-    code: varchar('code', { length: 50 }).notNull().unique(),
-    description: varchar('description', { length: 255 }).notNull(),
-    points: integer('points').notNull(),
-    category: pointsScoringEnum('category').notNull(),
-    appliesTo: assetTypeEnum('appliesTo').notNull(),
-    isActive: boolean('isActive').notNull().default(true),
-    createdAt: timestamp('createdAt', { withTimezone: true })
-      .notNull()
-      .defaultNow(),
-    updatedAt: timestamp('updatedAt', { withTimezone: true })
-      .notNull()
-      .defaultNow(),
-  },
-  (table) => [
-    index('idx_scoring_rules_code').on(table.code),
-    index('idx_scoring_rules_category').on(table.category),
-  ],
-)
-
-export const scoringEvents = pgTable(
-  'scoringEvents',
-  {
-    id: text('id').primaryKey(),
-    driverId: text('driverId')
-      .notNull()
-      .references(() => drivers.id, { onDelete: 'cascade' }),
-    raceId: text('raceId')
-      .notNull()
-      .references(() => races.id, { onDelete: 'cascade' }),
-    raceSessionId: text('raceSessionId')
-      .notNull()
-      .references(() => reaceSessions.id, { onDelete: 'cascade' }),
-    ruleId: text('ruleId')
-      .notNull()
-      .references(() => scoringRules.id, { onDelete: 'cascade' }),
-    value: integer('value').notNull().default(1),
-    createdAt: timestamp('createdAt', { withTimezone: true })
-      .notNull()
-      .defaultNow(),
-  },
-  (table) => [
-    uniqueIndex('uidx_scoring_events_driver_session_rule').on(
-      table.driverId,
-      table.raceSessionId,
-      table.ruleId,
-    ),
-    index('idx_scoring_events_driver_race').on(table.driverId, table.raceId),
-  ],
-)
-
-export const raceAwards = pgTable(
-  'raceAwards',
-  {
-    id: text('id').primaryKey(),
-    raceId: text('raceId')
-      .notNull()
-      .references(() => races.id, { onDelete: 'cascade' }),
-    driverId: text('driverId')
-      .notNull()
-      .references(() => drivers.id, { onDelete: 'cascade' }),
-    adwardType: awardTypeEnum('awardType').notNull(),
-    createdAt: timestamp('createdAt', { withTimezone: true })
-      .notNull()
-      .defaultNow(),
-  },
-  (table) => [
-    index('idx_race_awards_driver').on(table.driverId),
-    uniqueIndex('uidx_race_awards_race_award').on(
-      table.raceId,
-      table.adwardType,
-    ),
   ],
 )
 
@@ -469,14 +288,14 @@ export const leagues = pgTable(
   'leagues',
   {
     id: text('id').primaryKey(),
-    name: varchar('name', { length: 255 }).notNull().unique(),
+    name: varchar('name', { length: 255 }).notNull(),
     description: varchar('description', { length: 500 }),
     createdBy: text('createdBy')
       .notNull()
       .references(() => user.id, { onDelete: 'cascade' }),
     type: typeLeagueEnum('type').notNull(),
-    region: typeLeagueEnum('region').notNull(),
-    inviteCode: varchar('inviteCode', { length: 10 }).notNull().unique(),
+    region: varchar('region', { length: 100 }),
+    inviteCode: varchar('inviteCode', { length: 10 }).unique(),
     maxParticipants: integer('maxParticipants').notNull().default(20),
     seasonYear: integer('seasonYear')
       .notNull()
@@ -537,9 +356,9 @@ export const teams = pgTable(
     name: varchar('name', { length: 255 }).notNull(),
     budget: decimal('budget', { precision: 12, scale: 2 })
       .notNull()
-      .default('1000000.00'),
-    points: integer('points').notNull().default(0),
-    changesRemaining: integer('changesRemaining').notNull().default(25),
+      .default('100000000.00'),
+    totalPoints: integer('totalPoints').notNull().default(0),
+    changesRemaining: integer('changesRemaining').notNull().default(30),
     createdAt: timestamp('createdAt', { withTimezone: true })
       .notNull()
       .defaultNow(),
@@ -572,7 +391,7 @@ export const lineups = pgTable(
       .notNull()
       .references(() => constructors.id, { onDelete: 'cascade' }),
     pointsEarned: integer('pointsEarned').notNull().default(0),
-    blocked: boolean('blocked').notNull().default(false),
+    isLocked: boolean('isLocked').notNull().default(false),
     createdAt: timestamp('createdAt', { withTimezone: true })
       .notNull()
       .defaultNow(),
@@ -590,36 +409,32 @@ export const lineups = pgTable(
   ],
 )
 
-export const transactions = pgTable(
-  'transactions',
-  {
-    id: text('id').primaryKey(),
-    teamId: text('teamId')
-      .notNull()
-      .references(() => teams.id, { onDelete: 'cascade' }),
-    type: typeTransactionEnum('type').notNull(),
-    subjectType: transactionSubjectEnum('subjectType').notNull(),
-    subjectId: text('subjectId'),
-    amount: decimal('amount', { precision: 12, scale: 2 }).notNull(),
-    raceId: text('raceId')
-      .notNull()
-      .references(() => races.id, { onDelete: 'cascade' }),
-    createdAt: timestamp('createdAt', { withTimezone: true })
-      .notNull()
-      .defaultNow(),
-  },
-  (table) => [
-    index('idx_transactions_team_race').on(table.teamId, table.raceId),
-    check(
-      'chk_transactions_subject_consistency',
-      sql`
+export const transactions = pgTable('transactions', {
+  id: text('id').primaryKey(),
+  teamId: text('teamId')
+    .notNull()
+    .references(() => teams.id, { onDelete: 'cascade' }),
+  type: typeTransactionEnum('type').notNull(),
+  subjectType: transactionSubjectEnum('subjectType').notNull(),
+  subjectId: text('subjectId'),
+  amount: decimal('amount', { precision: 12, scale: 2 }).notNull(),
+  raceId: text('raceId')
+    .notNull()
+    .references(() => races.id, { onDelete: 'cascade' }),
+  createdAt: timestamp('createdAt', { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+}, (table) => [
+  index('idx_transactions_team_race').on(table.teamId, table.raceId),
+  check(
+    'chk_transactions_subject_consistency',
+    sql`
       (${table.subjectType} = 'fee' AND ${table.subjectId} IS NULL)
       OR
       (${table.subjectType} IN ('driver', 'constructor') AND ${table.subjectId} IS NOT NULL)
     `,
-    ),
-  ],
-)
+  ),
+])
 
 export const boosterCatalog = pgTable('boosterCatalog', {
   id: text('id').primaryKey(),
@@ -650,9 +465,6 @@ export const userBoosters = pgTable(
     }),
     appliedToAssetId: text('appliedToAssetId'),
     createdAt: timestamp('createdAt', { withTimezone: true })
-      .notNull()
-      .defaultNow(),
-    updatedAt: timestamp('updatedAt', { withTimezone: true })
       .notNull()
       .defaultNow(),
   },
