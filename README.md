@@ -1,4 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+This is a Next.js project for Apex Rivals.
+
+## Environment Setup
+
+1. Copy the example environment file:
+
+	Windows (PowerShell):
+	Copy-Item .env.example .env
+
+	macOS/Linux:
+	cp .env.example .env
+
+2. Open .env and set real values for all variables.
+
+Required variables:
+
+- DATABASE_URL: PostgreSQL connection string
+- BETTER_AUTH_SECRET: secret for Better Auth (long random string)
+- BETTER_AUTH_URL: app URL (for local development use http://localhost:3000)
+- GOOGLE_CLIENT_ID: Google OAuth client ID
+- GOOGLE_CLIENT_SECRET: Google OAuth client secret
+- GMAIL_USER: Gmail account used to send auth emails
+- GMAIL_APP_PASSWORD: Gmail App Password for SMTP
+- NEXT_PUBLIC_BASE_URL: public app URL used in email templates
+- JOLPICA_URL: Formula 1 API base URL used by seed script
+
+3. Run dependencies and start development:
+
+	pnpm install
+	pnpm dev
 
 ## Getting Started
 
