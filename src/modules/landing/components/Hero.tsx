@@ -9,7 +9,7 @@ import { Button } from '@/src/components/ui/button'
 export default function Hero() {
   return (
     <section
-      className="relative mb-24 min-h-[calc(100dvh-80px)] sm:px-4 lg:px-10 sm:pt-4 lg:pt-8"
+      className="relative mb-20 min-h-[calc(100dvh-80px)] sm:px-4 lg:px-10 sm:pt-4 lg:pt-8"
       data-section="hero"
     >
       <div className="absolute inset-0 -z-10 overflow-hidden sm:inset-4 lg:inset-8">
