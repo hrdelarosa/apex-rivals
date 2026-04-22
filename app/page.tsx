@@ -9,7 +9,9 @@ import CTASection from '@/src/modules/landing/components/CTASection'
 import Footer from '@/src/modules/landing/components/Footer'
 import HowItWorks from '@/src/modules/landing/components/HowItWorks'
 import TitleSection from '@/src/modules/landing/components/ui/TitleSection'
+import LabelSection from '@/src/modules/landing/components/ui/LabelSection'
 import FAQ from '@/src/modules/landing/components/FAQ'
+import NextGrandPrix from '@/src/modules/landing/components/NextGrandPrix'
 
 export default async function Home() {
   const session = await auth.api.getSession({
@@ -27,13 +29,16 @@ export default async function Home() {
         <Hero />
 
         <div className="space-y-24">
+          <NextGrandPrix>
+            <LabelSection>Siguiente Gran Premio</LabelSection>
+          </NextGrandPrix>
+
           <ContainerSection id="how-it-works">
             <div className="text-center max-w-3xl mx-auto">
-              <span className="text-sm text-warm-red font-semibold font-exo2">
-                ¿CÓMO FUNCIONA?
-              </span>
-
-              <TitleSection title="Maestro de la estrategia" className="mt-2" />
+              <LabelSection>¿Cómo funciona?</LabelSection>
+              <TitleSection className="mt-2">
+                Maestro de la estrategia
+              </TitleSection>
 
               <p className="text-lg leading-relaxed text-muted-foreground">
                 Estrategia por encima de la complejidad. Gestiona tu presupuesto
@@ -45,10 +50,9 @@ export default async function Home() {
           </ContainerSection>
 
           <ContainerSection id="faq">
-            <TitleSection
-              title="Preguntas frecuentes"
-              className="text-center"
-            />
+            <TitleSection className="text-center">
+              Preguntas frecuentes
+            </TitleSection>
 
             <FAQ />
           </ContainerSection>
