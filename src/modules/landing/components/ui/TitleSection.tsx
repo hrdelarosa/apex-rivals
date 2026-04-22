@@ -1,13 +1,13 @@
 interface Props extends React.HTMLAttributes<HTMLHeadingElement> {
-  title: string
+  children: string
 }
 
-export default function TitleSection({ title, ...props }: Props) {
+export default function TitleSection({ children, ...props }: Props) {
   return (
     <h2
-      className={` ${props.className} mb-6 text-3xl sm:text-4xl md:text-5xl font-extrabold font-exo2`}
+      className={`${props.className} text-3xl sm:text-4xl md:text-5xl mb-6 font-extrabold font-exo2`}
     >
-      {title}
+      {children}
     </h2>
   )
 }
