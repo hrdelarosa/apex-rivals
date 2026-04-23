@@ -78,7 +78,7 @@ export default function NextGrandPrixMap({
           </div>
         </Card>
       ) : (
-        <Card className="h-75 p-0 overflow-hidden">
+        <Card className="h-70 p-0 overflow-hidden">
           <Map
             ref={mapRef}
             center={[longitude, latitude]}
