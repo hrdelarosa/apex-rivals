@@ -23,7 +23,7 @@ export default function CTASection() {
       </div>
 
       <div className="h-full flex flex-col items-center justify-center max-w-3xl mx-auto text-center px-4 lg:px-0">
-        <TitleSection title="Únete a la parrilla ahora mismo" />
+        <TitleSection>Únete a la parrilla ahora mismo</TitleSection>
 
         <p className="text-base md:text-lg text-gray-300 mb-6">
           Únete a miles de aficionados a la F1 que compiten en Apex Rivals.
