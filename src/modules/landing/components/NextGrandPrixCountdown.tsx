@@ -2,13 +2,23 @@
 
 import CardCountdown from './ui/CardCountdown'
 import { useCountdown } from '../hooks/useCountdown'
+import { getTimeRemaining } from '../lib/utils'
+
+type TimeRemaining = ReturnType<typeof getTimeRemaining>
 
 interface Props {
   targetDate: Date
+  initialTimeRemaining: TimeRemaining
 }
 
-export default function NextGrandPrixCountdown({ targetDate }: Props) {
-  const { days, hours, minutes, seconds } = useCountdown({ targetDate })
+export default function NextGrandPrixCountdown({
+  targetDate,
+  initialTimeRemaining,
+}: Props) {
+  const { days, hours, minutes, seconds } = useCountdown({
+    targetDate,
+    initialTimeRemaining,
+  })
   const hasRaceStarted =
     days === 0 && hours === 0 && minutes === 0 && seconds === 0
 

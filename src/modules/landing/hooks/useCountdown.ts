@@ -1,10 +1,18 @@
 import { useEffect, useState } from 'react'
 import { getTimeRemaining } from '../lib/utils'
 
-export function useCountdown({ targetDate }: { targetDate: Date }) {
-  const [timeRemaining, setTimeRemaining] = useState(
-    getTimeRemaining({ targetDate }),
-  )
+type TimeRemaining = ReturnType<typeof getTimeRemaining>
+
+interface UseCountdownProps {
+  targetDate: Date
+  initialTimeRemaining: TimeRemaining
+}
+
+export function useCountdown({
+  targetDate,
+  initialTimeRemaining,
+}: UseCountdownProps) {
+  const [timeRemaining, setTimeRemaining] = useState(initialTimeRemaining)
 
   useEffect(() => {
     const interval = setInterval(() => {

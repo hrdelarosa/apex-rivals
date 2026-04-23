@@ -25,7 +25,7 @@ import {
   getNextRace,
   getNextsRaces,
 } from '../services/race.service'
-import { calculateRaceDistance } from '../lib/utils'
+import { calculateRaceDistance, getTimeRemaining } from '../lib/utils'
 
 export default async function NextGrandPrix({
   children,
@@ -41,6 +41,8 @@ export default async function NextGrandPrix({
   const nextsRaces = await getNextsRaces({
     round: Number(raceJolpi?.round ?? 1),
   })
+  const targetDate = new Date(`${raceJolpi?.date}T${raceJolpi?.time}`)
+  const initialTimeRemaining = getTimeRemaining({ targetDate })
 
   return (
     <div>
@@ -81,7 +83,8 @@ export default async function NextGrandPrix({
             </div>
 
             <NextGrandPrixCountdown
-              targetDate={new Date(`${raceJolpi?.date}T${raceJolpi?.time}`)}
+              targetDate={targetDate}
+              initialTimeRemaining={initialTimeRemaining}
             />
 
             <NextsRaces nextsRaces={nextsRaces} />
