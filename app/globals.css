@@ -24,6 +24,12 @@
     scroll-behavior: smooth;
     scroll-padding-top: 5rem;
   }
+  .maplibregl-popup-content {
+    @apply bg-transparent! shadow-none! p-0! rounded-none!;
+  }
+  .maplibregl-popup-tip {
+    @apply hidden!;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
