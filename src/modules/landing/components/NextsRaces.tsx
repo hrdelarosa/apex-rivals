@@ -2,6 +2,7 @@ import { Fragment } from 'react'
 import { JolpiRace } from '../types/nextGranPrix.types'
 
 import { Separator } from '@/src/components/ui/separator'
+import { getRaceDate } from '../lib/utils'
 
 interface Props {
   nextsRaces: JolpiRace[] | null
@@ -24,7 +25,10 @@ export default function NextsRaces({ nextsRaces }: Props) {
           <Fragment key={race.raceName || index}>
             <div className="flex items-center justify-between py-3.5 hover:bg-card-primary/50 transition-colors">
               <p className="text-lg font-exo2 font-semibold text-warm-red/80">
-                MAY 22 - 24
+                {getRaceDate({
+                  fp1: race.FirstPractice?.date,
+                  race: race.date,
+                })}
               </p>
 
               <p className="text-2xl font-exo2 font-bold text-right">

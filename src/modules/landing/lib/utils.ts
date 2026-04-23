@@ -1,3 +1,5 @@
+import { MONTHS } from '../constants/dates'
+
 export function calculateRaceDistance({
   circuitLength,
   laps,
@@ -24,4 +26,22 @@ export function getTimeRemaining({ targetDate }: { targetDate: Date }) {
     minutes: Math.floor((total / (1000 * 60)) % 60),
     seconds: Math.floor((total / 1000) % 60),
   }
+}
+
+export function getRaceDate({ fp1, race }: { fp1: Date; race: Date }) {
+  if (!fp1 || !race) return 'Fecha no disponible'
+
+  const firstPracticeDate = new Date(fp1)
+  const raceDate = new Date(race)
+
+  const startMonth = MONTHS[firstPracticeDate.getUTCMonth()]
+  const startDay = firstPracticeDate.getUTCDate()
+  const endMonth = MONTHS[raceDate.getUTCMonth()]
+  const endDay = raceDate.getUTCDate()
+
+  if (startMonth === endMonth) {
+    return `${startMonth} ${startDay} - ${endDay}`
+  }
+
+  return `${startMonth} ${startDay} - ${endMonth} ${endDay}`
 }
