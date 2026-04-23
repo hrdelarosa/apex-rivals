@@ -47,47 +47,49 @@ export default async function NextGrandPrix({
   return (
     <div>
       <div className="max-w-7xl mx-auto w-full">
-        {children}
-        <h2 className="text-4xl sm:text-5xl md:text-6xl mb-1 font-extrabold font-exo2">
-          {raceJolpi ? raceJolpi.raceName : 'No hay carreras próximas'}
-        </h2>
-        <div className="mb-6 flex items-center gap-1 text-muted-foreground">
-          <IconMapPin size={20} />
-          <p className="text-lg">
-            {raceJolpi?.Circuit.Location.locality},{' '}
-            {raceJolpi?.Circuit.Location.country}
-          </p>
-        </div>
-
         <div className="grid grid-cols-2 gap-8">
-          <div className="flex flex-col gap-6">
-            <div className="grid grid-cols-3 gap-3">
-              <DetailItem
-                icon={IconFlag3}
-                title="Ronda"
-                description={raceJolpi?.round || 'No disponible'}
-              />
-              <DetailItem
-                icon={IconRepeat}
-                title="Vueltas"
-                description={race?.laps || 'No disponible'}
-              />
-              <DetailItem
-                icon={IconRoute}
-                title="Distancia total"
-                description={calculateRaceDistance({
-                  circuitLength: race?.circuit?.circuitLength,
-                  laps: race?.laps,
-                })}
-              />
+          <div>
+            {children}
+            <h2 className="text-4xl sm:text-5xl md:text-6xl mb-1 font-extrabold font-exo2">
+              {raceJolpi ? raceJolpi.raceName : 'No hay carreras próximas'}
+            </h2>
+            <div className="mb-6 flex items-center gap-1 text-muted-foreground">
+              <IconMapPin size={20} />
+              <p className="text-lg">
+                {raceJolpi?.Circuit.Location.locality},{' '}
+                {raceJolpi?.Circuit.Location.country}
+              </p>
             </div>
 
-            <NextGrandPrixCountdown
-              targetDate={targetDate}
-              initialTimeRemaining={initialTimeRemaining}
-            />
+            <div className="flex flex-col gap-6">
+              <div className="grid grid-cols-3 gap-3">
+                <DetailItem
+                  icon={IconFlag3}
+                  title="Ronda"
+                  description={raceJolpi?.round || 'No disponible'}
+                />
+                <DetailItem
+                  icon={IconRepeat}
+                  title="Vueltas"
+                  description={race?.laps || 'No disponible'}
+                />
+                <DetailItem
+                  icon={IconRoute}
+                  title="Distancia total"
+                  description={calculateRaceDistance({
+                    circuitLength: race?.circuit?.circuitLength,
+                    laps: race?.laps,
+                  })}
+                />
+              </div>
 
-            <NextsRaces nextsRaces={nextsRaces} />
+              <NextGrandPrixCountdown
+                targetDate={targetDate}
+                initialTimeRemaining={initialTimeRemaining}
+              />
+
+              <NextsRaces nextsRaces={nextsRaces} />
+            </div>
           </div>
 
           <Card className="relative overflow-hidden">
