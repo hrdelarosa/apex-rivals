@@ -26,6 +26,7 @@ import {
   getNextsRaces,
 } from '../services/race.service'
 import { calculateRaceDistance, getTimeRemaining } from '../lib/utils'
+import TitleSection from './ui/TitleSection'
 
 export default async function NextGrandPrix({
   children,
@@ -50,9 +51,9 @@ export default async function NextGrandPrix({
         <div className="grid grid-cols-2 gap-8">
           <div>
             {children}
-            <h2 className="text-4xl sm:text-5xl md:text-6xl mb-1 font-extrabold font-exo2">
+            <TitleSection size="lg" className="mb-1!">
               {raceJolpi ? raceJolpi.raceName : 'No hay carreras próximas'}
-            </h2>
+            </TitleSection>
             <div className="mb-6 flex items-center gap-1 text-muted-foreground">
               <IconMapPin size={20} />
               <p className="text-lg">
