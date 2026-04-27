@@ -2,7 +2,7 @@
 
 import { IconMapPinOff } from '@tabler/icons-react'
 
-import { Location } from '../types/nextGranPrix.types'
+import { Location } from '../../types/nextGranPrix.types'
 import { Card } from '@/src/components/ui/card'
 import {
   Map,

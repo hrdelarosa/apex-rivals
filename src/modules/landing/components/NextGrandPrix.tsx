@@ -16,9 +16,9 @@ import {
   CardTitle,
 } from '@/src/components/ui/card'
 import DetailItem from './ui/DetailItem'
-import NextGrandPrixCountdown from './NextGrandPrixCountdown'
-import NextsRaces from './NextsRaces'
-import NextGrandPrixMap from './NextGrandPrixMap'
+import NextGrandPrixCountdown from './nextGrandPrix/NextGrandPrixCountdown'
+import NextsRaces from './nextGrandPrix/NextsRaces'
+import NextGrandPrixMap from './nextGrandPrix/NextGrandPrixMap'
 
 import {
   getNextGrandPrixDetails,

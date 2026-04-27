@@ -1,8 +1,8 @@
 import { Fragment } from 'react'
-import { JolpiRace } from '../types/nextGranPrix.types'
+import { JolpiRace } from '../../types/nextGranPrix.types'
 
 import { Separator } from '@/src/components/ui/separator'
-import { getRaceDate } from '../lib/utils'
+import { getRaceDate } from '../../lib/utils'
 
 interface Props {
   nextsRaces: JolpiRace[] | null

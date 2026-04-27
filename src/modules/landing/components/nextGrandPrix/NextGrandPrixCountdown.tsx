@@ -1,8 +1,8 @@
 'use client'
 
-import CardCountdown from './ui/CardCountdown'
-import { useCountdown } from '../hooks/useCountdown'
-import { getTimeRemaining } from '../lib/utils'
+import CardCountdown from '../ui/CardCountdown'
+import { useCountdown } from '../../hooks/useCountdown'
+import { getTimeRemaining } from '../../lib/utils'
 
 type TimeRemaining = ReturnType<typeof getTimeRemaining>
 
