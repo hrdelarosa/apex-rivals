@@ -24,14 +24,14 @@ export default function NextsRaces({ nextsRaces }: Props) {
         nextsRaces.map((race, index) => (
           <Fragment key={race.raceName || index}>
             <div className="flex items-center justify-between py-3.5 hover:bg-card-primary/50 transition-colors">
-              <p className="text-lg font-exo2 font-semibold text-warm-red/80">
+              <p className="text-base md:text-lg font-exo2 font-semibold text-warm-red/80">
                 {getRaceDate({
                   fp1: race.FirstPractice?.date,
                   race: race.date,
                 })}
               </p>
 
-              <p className="text-2xl font-exo2 font-bold text-right">
+              <p className="text-xl sm:text-2xl font-exo2 font-bold text-right">
                 {race.raceName || 'Gran Premio no disponible'}
               </p>
             </div>
