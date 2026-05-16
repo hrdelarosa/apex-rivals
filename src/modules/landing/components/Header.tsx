@@ -16,7 +16,7 @@ export default function Header() {
             height={45}
           />
 
-          <h1 className="text-xl sm:text-2xl font-bold font-exo2">
+          <h1 className="hidden sm:block text-xl sm:text-2xl font-bold font-exo2">
             Apex Rivals
           </h1>
         </Link>
