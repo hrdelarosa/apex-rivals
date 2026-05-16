@@ -1,6 +1,14 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@/src/components/ui/avatar'
+import {
+  IconTrendingUp,
+  IconPasswordUser,
+  IconBellRinging,
+} from '@tabler/icons-react'
+
+import Image from 'next/image'
 import { Badge } from '@/src/components/ui/badge'
-import { Button } from '@/src/components/ui/button'
+import { Progress } from '@/src/components/ui/progress'
+import { Field, FieldLabel } from '@/src/components/ui/field'
+import { Avatar, AvatarFallback, AvatarImage } from '@/src/components/ui/avatar'
 import {
   Card,
   CardContent,
@@ -9,17 +17,14 @@ import {
   CardHeader,
   CardTitle,
 } from '@/src/components/ui/card'
-import { Field, FieldLabel } from '@/src/components/ui/field'
 import {
   Item,
-  ItemActions,
   ItemContent,
   ItemDescription,
   ItemGroup,
   ItemMedia,
   ItemTitle,
 } from '@/src/components/ui/item'
-import { Progress } from '@/src/components/ui/progress'
 import {
   Table,
   TableBody,
@@ -29,24 +34,17 @@ import {
   TableHeader,
   TableRow,
 } from '@/src/components/ui/table'
-import {
-  IconPlus,
-  IconTrendingUp,
-  IconPasswordUser,
-  IconBellRinging,
-} from '@tabler/icons-react'
-import Image from 'next/image'
 
 export default function Features() {
   return (
-    <div className="grid auto-rows-[minmax(150px,1fr)] grid-cols-1 md:grid-cols-12 gap-3">
-      <Card className="col-span-8">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
+      <Card className="col-span-1 sm:col-span-2 lg:col-span-3 justify-between">
         <CardContent>
-          <div className="grid grid-cols-[2fr_1fr] gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-[2fr_1fr] gap-3">
             <div className="flex flex-col gap-2">
               <div className="flex items-center justify-between p-3 rounded-xl border border-border shadow-xl/20">
                 <div className="flex items-center gap-2">
-                  <Avatar size="lg">
+                  <Avatar className="size-8 sm:size-10">
                     <AvatarImage
                       src="https://github.com/shadcn.png"
                       alt="Avatar"
@@ -71,7 +69,7 @@ export default function Features() {
 
               <div className="flex items-center justify-between p-3 rounded-xl border border-border shadow-xl/20">
                 <div className="flex items-center gap-2">
-                  <Avatar size="lg">
+                  <Avatar className="size-8 sm:size-10">
                     <AvatarImage
                       src="https://github.com/shadcn.png"
                       alt="Avatar"
@@ -95,9 +93,9 @@ export default function Features() {
               </div>
             </div>
 
-            <div className="flex flex-col items-center justify-center gap-2 p-3 rounded-xl border border-border shadow-xl/20">
-              <div className="flex flex-col items-center gap-2">
-                <Avatar size="lg">
+            <div className="flex flex-row sm:flex-col items-center justify-between sm:justify-center gap-2 p-3 rounded-xl border border-border shadow-xl/20">
+              <div className="flex flex-row sm:flex-col items-center gap-2">
+                <Avatar className="size-8 sm:size-10">
                   <AvatarImage
                     src="https://github.com/shadcn.png"
                     alt="Avatar"
@@ -105,7 +103,7 @@ export default function Features() {
                   <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
 
-                <p className="text-sm font-semibold leading-tight text-foreground">
+                <p className="text-sm font-semibold leading-tight text-foreground text-center">
                   Red Bull Racing
                 </p>
               </div>
@@ -116,7 +114,7 @@ export default function Features() {
             </div>
           </div>
 
-          <Field className="w-full mt-3 gap-2">
+          <Field className="w-full mt-4 gap-2">
             <FieldLabel className="text-sm">
               <span className="font-medium text-muted-foreground">
                 Presupuesto utilizado
@@ -142,23 +140,7 @@ export default function Features() {
         </CardFooter>
       </Card>
 
-      <Card className="col-span-4 gap-2">
-        <CardHeader>
-          <IconPasswordUser size={42} className="text-primary/80" />
-        </CardHeader>
-
-        <CardContent>
-          <h3 className="text-xl font-exo2 font-semibold">Acceso seguro</h3>
-
-          <p className="text-muted-foreground text-sm mt-2">
-            Autenticación segura através de Google y Correo electrónico. Tu
-            cuenta, tus datos de telemetria y tu estrategia de turnos,
-            protegidos por los mejores estándares de seguridad.
-          </p>
-        </CardContent>
-      </Card>
-
-      <Card className="col-span-5">
+      <Card className="col-span-1 sm:col-span-2 lg:col-span-3">
         <CardHeader>
           <CardTitle className="text-xl font-exo2 font-semibold">
             Modificadores Especiales
@@ -174,7 +156,7 @@ export default function Features() {
         <CardContent>
           <ItemGroup className="gap-2">
             <Item variant="outline" className="rounded-xl p-3">
-              <ItemMedia variant="image">
+              <ItemMedia variant="image" className="size-8 sm:size-10">
                 <Image
                   src="/apex-rivals-logo.webp"
                   alt="iamge"
@@ -193,7 +175,7 @@ export default function Features() {
             </Item>
 
             <Item variant="outline" className="rounded-xl p-3">
-              <ItemMedia variant="image">
+              <ItemMedia variant="image" className="size-8 sm:size-10">
                 <Image
                   src="/apex-rivals-logo.webp"
                   alt="iamge"
@@ -212,7 +194,7 @@ export default function Features() {
             </Item>
 
             <Item variant="outline" className="rounded-xl p-3">
-              <ItemMedia variant="image">
+              <ItemMedia variant="image" className="size-8 sm:size-10">
                 <Image
                   src="/apex-rivals-logo.webp"
                   alt="iamge"
@@ -233,25 +215,7 @@ export default function Features() {
         </CardContent>
       </Card>
 
-      <Card className="col-span-3 gap-2">
-        <CardHeader>
-          <IconBellRinging size={42} className="text-primary/80" />
-        </CardHeader>
-
-        <CardContent>
-          <h3 className="text-xl font-exo2 font-semibold">
-            Notificaciones Claves
-          </h3>
-
-          <p className="text-muted-foreground text-sm mt-2">
-            Recibe avisos antes del cierre de mercado, cambios de precio,
-            resultados de carreras y movimientos de las ligas. Mantente
-            informado y toma decisiones estratégicas.
-          </p>
-        </CardContent>
-      </Card>
-
-      <Card className="col-span-4">
+      <Card className="col-span-1 sm:col-span-2 row-span-1 md:row-span-2">
         <CardHeader>
           <CardTitle className="text-xl font-exo2 font-semibold">
             Compite en ligas
@@ -314,11 +278,11 @@ export default function Features() {
         </CardContent>
       </Card>
 
-      <Card className="col-span-6">
+      <Card className="row-start-auto col-span-1 sm:col-span-2 md:row-start-2 lg:row-start-auto md:col-span-4">
         <CardContent>
-          <Item variant="outline" className="rounded-xl">
+          <Item variant="outline" className="rounded-xl gap-2">
             <ItemMedia variant="image">
-              <Avatar size="lg">
+              <Avatar className="size-8 sm:size-10">
                 <AvatarImage src="https://github.com/shadcn.png" alt="Avatar" />
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
@@ -329,10 +293,15 @@ export default function Features() {
             </ItemContent>
 
             <ItemContent>
-              <p className="font-semibold">$28.4M</p>
-              <ItemDescription className="text-xs inline-flex items-center gap-1">
-                $25.1M
-                <IconTrendingUp size={14} className="text-green-500" />
+              <p className="font-semibold text-lg sm:text-xl text-right font-exo2">
+                $28.4M
+              </p>
+              <ItemDescription className="inline-flex text-xs font-medium font-exo2 flex-col-reverse sm:flex-row items-center gap-1 text-right">
+                <span className="hidden sm:block">Antes $25.1M</span>
+                <Badge className="bg-green-50 text-green-700 dark:bg-green-950 dark:text-green-300">
+                  <IconTrendingUp size={14} />
+                  +13.3%
+                </Badge>
               </ItemDescription>
             </ItemContent>
           </Item>
@@ -349,6 +318,40 @@ export default function Features() {
             momento exacto y optimiza tu capital para asegurar la victoria.
           </p>
         </CardFooter>
+      </Card>
+
+      <Card className="col-span-1 md:col-span-2 lg:col-start-3 gap-2">
+        <CardHeader>
+          <IconPasswordUser size={42} className="text-primary/80" />
+        </CardHeader>
+
+        <CardContent>
+          <h3 className="text-xl font-exo2 font-semibold">Acceso seguro</h3>
+
+          <p className="text-muted-foreground text-sm mt-2">
+            Autenticación segura através de Google y Correo electrónico. Tu
+            cuenta, tus datos de telemetria y tu estrategia de turnos,
+            protegidos por los mejores estándares de seguridad.
+          </p>
+        </CardContent>
+      </Card>
+
+      <Card className="col-span-1 md:col-span-2 lg:col-start-5 gap-2">
+        <CardHeader>
+          <IconBellRinging size={42} className="text-primary/80" />
+        </CardHeader>
+
+        <CardContent>
+          <h3 className="text-xl font-exo2 font-semibold">
+            Notificaciones Claves
+          </h3>
+
+          <p className="text-muted-foreground text-sm mt-2">
+            Recibe avisos antes del cierre de mercado, cambios de precio,
+            resultados de carreras y movimientos de las ligas. Mantente
+            informado y toma decisiones estratégicas.
+          </p>
+        </CardContent>
       </Card>
     </div>
   )
