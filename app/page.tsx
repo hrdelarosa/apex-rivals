@@ -5,13 +5,14 @@ import { auth } from '@/src/lib/auth'
 import Header from '@/src/modules/landing/components/Header'
 import Hero from '@/src/modules/landing/components/Hero'
 import ContainerSection from '@/src/modules/landing/components/ui/ContainerSection'
+import NextGrandPrix from '@/src/modules/landing/components/NextGrandPrix'
+import LabelSection from '@/src/modules/landing/components/ui/LabelSection'
+import TitleSection from '@/src/modules/landing/components/ui/TitleSection'
+import HowItWorks from '@/src/modules/landing/components/HowItWorks'
+import Features from '@/src/modules/landing/components/Features'
+import FAQ from '@/src/modules/landing/components/FAQ'
 import CTASection from '@/src/modules/landing/components/CTASection'
 import Footer from '@/src/modules/landing/components/Footer'
-import HowItWorks from '@/src/modules/landing/components/HowItWorks'
-import TitleSection from '@/src/modules/landing/components/ui/TitleSection'
-import LabelSection from '@/src/modules/landing/components/ui/LabelSection'
-import FAQ from '@/src/modules/landing/components/FAQ'
-import NextGrandPrix from '@/src/modules/landing/components/NextGrandPrix'
 
 export default async function Home() {
   const session = await auth.api.getSession({
@@ -29,9 +30,11 @@ export default async function Home() {
         <Hero />
 
         <div className="space-y-24">
-          <NextGrandPrix>
-            <LabelSection>Siguiente Gran Premio</LabelSection>
-          </NextGrandPrix>
+          <ContainerSection id="next-grand-prix">
+            <NextGrandPrix>
+              <LabelSection>Siguiente Gran Premio</LabelSection>
+            </NextGrandPrix>
+          </ContainerSection>
 
           <ContainerSection id="how-it-works">
             <div className="text-center max-w-3xl mx-auto">
@@ -47,6 +50,14 @@ export default async function Home() {
               </p>
             </div>
             <HowItWorks />
+          </ContainerSection>
+
+          <ContainerSection id="features">
+            <TitleSection size="lg">
+              Características <span className="text-warm-red">Principales</span>
+            </TitleSection>
+
+            <Features />
           </ContainerSection>
 
           <ContainerSection id="faq">
