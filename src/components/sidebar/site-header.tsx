@@ -3,6 +3,7 @@
 import { usePathname } from 'next/navigation'
 import { Separator } from '../ui/separator'
 import { SidebarTrigger } from '../ui/sidebar'
+import SiteHeaderActions from './SiteHeaderActions'
 
 import { SIDEBAR_MAIN_ROUTES } from '@/src/config/routes'
 
@@ -21,6 +22,8 @@ export default function SiteHeader() {
           className="mx-2 data-[orientation=vertical]:h-4"
         />
         <h1 className="text-base font-semibold font-exo2">{title}</h1>
+
+        <SiteHeaderActions action={title || ''} />
       </div>
     </header>
   )
