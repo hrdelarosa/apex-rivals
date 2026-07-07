@@ -16,6 +16,13 @@ export const ROUTES_HEADER = [
   { label: 'Reglas', href: '/rules' },
 ]
 
+export const ROUTES_HEADER_PROTECTED = [
+  { label: 'Inicio', href: '/dashboard' },
+  { label: 'Ligas', href: '/leagues' },
+  { label: 'Clasificación', href: '/standings' },
+  { label: 'Puntuación', href: '/scoring' },
+]
+
 export const ROUTES_FOOTER = {
   resources: [
     { label: 'Acerca de', href: '#about' },
@@ -24,6 +31,7 @@ export const ROUTES_FOOTER = {
     { label: 'Características', href: '#features' },
   ],
   rules: [
+    { label: 'Reglas', href: '/rules' },
     { label: 'Sistema de puntuación', href: '/rules/#scoring-system' },
     { label: 'Límite presupuestario', href: '/rules/#budget-cap' },
     { label: 'Sustituciones', href: '/rules/#substitutions' },
@@ -48,4 +56,13 @@ export const SIDEBAR_SECONDARY_ROUTES = [
   { label: 'Reglas', href: '/rules', icon: IconBook2 },
   { label: 'Puntuación', href: '/scoring', icon: IconAward },
   { label: 'Configuración', href: '/settings', icon: IconSettings },
+]
+
+export const ROUTES_RULES = [
+  { label: 'Ligas', href: '#leagues' },
+  { label: 'Equipos y presupuesto', href: '#budget-cap' },
+  { label: 'Límites del sistema por usuario', href: '#user-limits' },
+  { label: 'Sistema de boosters', href: '#boosters-system' },
+  { label: 'Mercado', href: '#market' },
+  { label: 'Sistema de precios dinámicos', href: '#dynamic-pricing' },
 ]
